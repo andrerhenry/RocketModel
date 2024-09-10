@@ -1,6 +1,15 @@
-# Flight Simulation on Rocket Model 8
-# Andre Henry
-# 5/12/2024
+""" Rocket Flight Calculator
+    Version = 1.0.0
+    Autor: Andre Henry
+    Date: 5/12/2024
+
+    This Code is to providoe rought flight calcuation data for a Rocket desing. 
+    Assumtions in this code:
+        *Gravity is constaint
+        *Rocket AOA is zero
+        *Rocket is stable
+"""
+__version__ = "1.0.0"
 
 import numpy as np
 import matplotlib.pyplot as plt
