@@ -14,32 +14,27 @@ __version__ = "1.0.0"
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate as sci
+from rocket_config import Motor
+
 plt.ion # Interactive mode in plots
 
 # Gloabals
 
-gravity = -9.81 # m/s^2 change in gravity considered minimal
+GRAVITY = -9.81 # m/s^2 change in gravity considered minimal
 
 # Rocket Physcial Perameters
 RocketMass0 = 32098/1000 # kg
 diameter = 0.155 # m
 S = np.pi*(diameter/2)**2  # m^2 Cross sectional area
 Cd = 0.36 # Ceffitant of drag
-
+    
 # Rocket Motor Perameters
 FuelMass = 7512/1000 # kg
 ThrustAvg = 3168.0 # F
 TotalImpulse = 14041.0 # Ns
-ISP = TotalImpulse/(FuelMass*np.abs(gravity))
+ISP = TotalImpulse/(FuelMass*np.abs(GRAVITY))
 #ISP = 200 #sec - motor effciency
 
-# Simulation Functions
-# Aerodynamics 
-def AirDensity(altitude):
-    beta = 0.1354/1000.0 # Density Constant - confrim Constant
-    rhos = 1.225 # kg/m^3 at sea level
-    rho = rhos * np.exp(-beta*altitude)
-    return rho
 
 # Thrust model
 def Thrust(t):
@@ -48,13 +43,25 @@ def Thrust(t):
         Fthrust = ThrustAvg
     else:
         Fthrust = 0.0
-    ve = ISP * gravity
+    ve = ISP * GRAVITY
     mdot = Fthrust/ve
     return Fthrust, mdot
 
 
+# Simulation Functions
+# Aerodynamics 
+def AirDensity(altitude):
+    # alternate method would be to intepulate with data
+    beta = 0.1354/1000.0 # Density Constant - confrim Constant
+    rhos = 1.225 # kg/m^3 at sea level
+    rho = rhos * np.exp(-beta*altitude)
+    return rho
+
+
+
+
 # Differential equation 
-def Derivative(state, t):
+def Derivative(state: np.array, t: int, motor: Motor) -> np.array:
     # State vector
     z = state[0]
     zv = state[1]
@@ -65,9 +72,9 @@ def Derivative(state, t):
     qinf = 0.5 * rho * S * zv**2 *np.sign(zv)
     
     # Forces
-    Fgravity = gravity * mass
+    Fgravity = GRAVITY * mass
     Faero = -qinf * Cd
-    Fthrust, mdot = Thrust(t)
+    Fthrust, mdot = motor.fThrust(t)
     
     Fnet = Fgravity + Faero + Fthrust
     za = Fnet/mass
@@ -88,10 +95,13 @@ z0 = 0 # m
 zv0 = 0 # m/s
 za0 = 0 # m/s**2
 t = np.linspace(0,63,10000)
+
+n_motor = Motor(FuelMass, ThrustAvg, TotalImpulse)
+
 stateinitial = np.array([z0, zv0, RocketMass0])
 
 # Integratoin of model
-stateout = sci.odeint(Derivative, stateinitial, t)
+stateout = sci.odeint(Derivative, stateinitial, t, args=(n_motor,))
 
 zout = stateout[:,0]
 zvout = stateout[:,1]
@@ -104,6 +114,8 @@ print(f'Maxium Velocity:  {np.max(zvout):.2f}')
 print(f'ISP:  {np.max(ISP):.2f}')
 print('\n')
 
+
+""" 
 plt.figure()
 plt.plot(t,zout)
 plt.title('Altitude')
@@ -125,5 +137,5 @@ plt.xlabel('Time (s)')
 plt.ylabel('mass (kg)')
 plt.grid()
 
-plt.show()
+plt.show() """
 
