@@ -1,11 +1,21 @@
 from numpy import abs, pi
 
 class rocket_config():    
-    def __init__(self) -> None:
+    def __init__(self, rocket_mass_0: float, drag_coeffitiant: float, diameter: float) -> None:
+        """initalize and storage of rocket charitaristic variables
+
+        Args:
+            rocket_mass_0 (float): intial mass of rocket - Kg
+            drag_coeffitiant (float): coeffitiant of aerodynamic drag - unitless
+            diameter (float): diameter of rocket - meters
+        """
         # Rocket Parameters with Defualt values
-        self.rocket_mass_0 = 32098/1000 # kilograms
-        self.drag_coeffitiant = 0.36 #cf
-        self.diameter = 0.155 # meters
+        #"""it is possible to set diameter and xsec area independently 
+        #look in to fixing
+        
+        self.rocket_mass_0 = rocket_mass_0
+        self.drag_coeffitiant = drag_coeffitiant
+        self.diameter = diameter
         self.cross_sect_area = self.cross_sect_area_calc(self.diameter)
         pass
     
@@ -17,7 +27,7 @@ class rocket_config():
 class Motor():
     GRAVITY = -9.81
     
-    def __init__ (self, mass_fuel, trust_avg, total_impulse, total_burn_time) -> None:
+    def __init__(self, mass_fuel, trust_avg, total_impulse, total_burn_time) -> None:
         self.mass_fuel = mass_fuel
         self.trust_avg = trust_avg
         self.total_impulse = total_impulse
@@ -50,6 +60,14 @@ class Motor():
         
 
 if __name__ == "__main__":
+    # testing rocket
+    rocket_mass_0 = 32098/1000 # kilograms
+    drag_coeffitiant = 0.36 #cf
+    diameter = 0.155 # meters
+    rocket = rocket_config(rocket_mass_0, drag_coeffitiant, diameter)
+    
+    
+    
     # n Rocket Motor Perameters
     FuelMass = 7512.0/1000.0 # kg
     ThrustAvg = 3168.0 # F
@@ -57,7 +75,7 @@ if __name__ == "__main__":
     burn_time = 4.4 #s
     Nmotor = Motor(FuelMass, ThrustAvg, TotalImpulse, burn_time)
     
-    rocket = rocket_config()
+    
     
     
     Nmotor.f_thrust
