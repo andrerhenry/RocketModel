@@ -47,13 +47,13 @@ class Motor():
         return self.total_impulse/(self.mass_fuel*abs(self.GRAVITY))
     
     def motor_output(self, t: float) -> tuple [float, float]:
-        """motor_output is the returns the thrust and mass_dot
+        """Motor_output is the returns the thrust and mass_dot
 
         Args:
-            t (float): simulation time
+            t (float): Simulation time - seconds
 
         Returns:
-            tuple [float, float]: f_thrust, mass_dot
+            tuple [float, float]: f_thrust - Newtons, mass_dot Kg/second
         """
                         
         if (t < self.burn_time):
@@ -82,5 +82,4 @@ if __name__ == "__main__":
     Nmotor = Motor(FuelMass, ThrustAvg, TotalImpulse, burn_time)
     
     
-    Nmotor.f_thrust
-    print(Nmotor.f_thrust(1), type(Nmotor.f_thrust(1)) )
+    print(Nmotor.motor_output(1), type(Nmotor.motor_output(1)) )
