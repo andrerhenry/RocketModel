@@ -66,16 +66,12 @@ if __name__ == "__main__":
     diameter = 0.155 # meters
     rocket = RocketConfig(rocket_mass_0, drag_coefficient, diameter)
     
-    
-    
     # n Rocket Motor Perameters
     FuelMass = 7512.0/1000.0 # kg
     ThrustAvg = 3168.0 # F
     TotalImpulse = 14041.0 # Ns
     burn_time = 4.4 #s
     Nmotor = Motor(FuelMass, ThrustAvg, TotalImpulse, burn_time)
-    
-    
     
     
     Nmotor.f_thrust
