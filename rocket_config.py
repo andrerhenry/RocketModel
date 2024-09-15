@@ -1,12 +1,12 @@
 from numpy import abs, pi
 
-class rocket_config():    
-    def __init__(self, rocket_mass_0: float, drag_coeffitiant: float, diameter: float) -> None:
+class RocketConfig:    
+    def __init__(self, rocket_mass_0: float, drag_coefficient: float, diameter: float) -> None:
         """initalize and storage of rocket charitaristic variables
 
         Args:
             rocket_mass_0 (float): intial mass of rocket - Kg
-            drag_coeffitiant (float): coeffitiant of aerodynamic drag - unitless
+            drag_coefficient (float): coefficient of aerodynamic drag - unitless
             diameter (float): diameter of rocket - meters
         """
         # Rocket Parameters with Defualt values
@@ -14,12 +14,12 @@ class rocket_config():
         #look in to fixing
         
         self.rocket_mass_0 = rocket_mass_0
-        self.drag_coeffitiant = drag_coeffitiant
+        self.drag_coefficient = drag_coefficient
         self.diameter = diameter
         self.cross_sect_area = self.cross_sect_area_calc(self.diameter)
         pass
     
-    def cross_sect_area_calc(self,diameter) -> float:
+    def cross_sect_area_calc(self, diameter) -> float:
         return pi*(diameter/2)**2  # meters^2 
         
 
@@ -62,9 +62,9 @@ class Motor():
 if __name__ == "__main__":
     # testing rocket
     rocket_mass_0 = 32098/1000 # kilograms
-    drag_coeffitiant = 0.36 #cf
+    drag_coefficient = 0.36 #cf
     diameter = 0.155 # meters
-    rocket = rocket_config(rocket_mass_0, drag_coeffitiant, diameter)
+    rocket = RocketConfig(rocket_mass_0, drag_coefficient, diameter)
     
     
     
