@@ -2,12 +2,12 @@ from numpy import abs, pi
 
 class RocketConfig:    
     def __init__(self, rocket_mass_0: float, drag_coefficient: float, diameter: float) -> None:
-        """initalize and storage of rocket charitaristic variables
+        """Initalize and storage of rocket charitaristic variables
 
         Args:
-            rocket_mass_0 (float): intial mass of rocket - Kg
-            drag_coefficient (float): coefficient of aerodynamic drag - unitless
-            diameter (float): diameter of rocket - meters
+            rocket_mass_0 (float): Intial mass of rocket - Kg
+            drag_coefficient (float): Coefficient of aerodynamic drag - unitless
+            diameter (float): Diameter of rocket - meters
         """
         # Rocket Parameters with Defualt values
         #"""it is possible to set diameter and xsec area independently 
@@ -27,7 +27,15 @@ class RocketConfig:
 class Motor():
     GRAVITY = -9.81
     
-    def __init__(self, mass_fuel, trust_avg, total_impulse, total_burn_time) -> None:
+    def __init__(self, mass_fuel: float, trust_avg: float, total_impulse: float, total_burn_time: float) -> None:
+        """Inital motor perameters_summary_
+
+        Args:
+            mass_fuel (float): Mass of fuel to burned - Kg
+            trust_avg (float): Average trust of motor - Newtons
+            total_impulse (float): Total Impulse  - Newton*seconds
+            total_burn_time (float): Burn Time - seconds
+        """        
         self.mass_fuel = mass_fuel
         self.trust_avg = trust_avg
         self.total_impulse = total_impulse
