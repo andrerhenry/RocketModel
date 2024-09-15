@@ -19,26 +19,27 @@ from Aero_Config import Aero
 
 plt.ion # Interactive mode in plots
 
-# Gloabals
 
 
-
-
-# Simulation Functions
-# Aerodynamics 
-
-
-
-
-
-# Differential equation 
+# Main differential equation 
 def Derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> np.array:
+    """State space equation to be integrated numericaly. 
+
+    Args:
+        state (np.array): State Vector [altitude - m, velocity - m/s, mass -kg]
+        t (int): Time of current step in integratoin - seconds
+        rocket (RocketConfig): Rocketfig class containing perameters/method of rocket
+        motor (Motor): Motor class conatin peramters/methods of the motor
+
+    Returns:
+        np.array: State array dervivative to be integrated [altitude_dot - m/s, velcoity_dot - m/s**2, mass_dot - kg/s]
+    """    
     # State vector
     altitude = state[0]
     velocity = state[1]
     mass = state[2]
     
-    GRAVITY = -9.81 # m/s^2 change in gravity considered minimal
+    GRAVITY = 9.81 # m/s^2 change in gravity considered negligible
     aero = Aero(rocket)
     
    
@@ -47,7 +48,7 @@ def Derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> n
     f_aero = aero.F_aero_drag(velocity, altitude)
     f_thrust, mass_dot = motor.motor_output(t)
     
-    f_net = f_gravity + f_aero + f_thrust
+    f_net = f_thrust - f_aero - f_gravity
     acceleration = f_net/mass
     
     # Stop integratoin when Rocket returns to ground
@@ -70,19 +71,19 @@ rocket_Ambition = RocketConfig(rocket_mass_0, drag_coefficient, diameter)
 n_fuel_mass = 7512/1000 # kg
 n_trust_avg = 3168.0 # Newtons
 n_total_impulse = 14041.0 # Newton*seconds
-n_motor = Motor(n_fuel_mass, n_trust_avg, n_total_impulse)
+n_total_burn_time = 4.4 # seconds
+n_motor = Motor(n_fuel_mass, n_trust_avg, n_total_impulse, n_total_burn_time)
 
 
 
 z0 = 0 # m
 zv0 = 0 # m/s
 za0 = 0 # m/s**2
-t = np.linspace(0,63,10000)
+stateinitial = np.array([z0, zv0, rocket_Ambition.rocket_mass_0])
 
-stateinitial = np.array([z0, zv0, RocketConfig.RocketMass0])
-
+time = np.arange(0, 63, 0.001)
 # Integratoin of model
-stateout = sci.odeint(Derivative, stateinitial, t, args=(n_motor,))
+stateout = sci.odeint(Derivative, stateinitial, time, args=(rocket_Ambition, n_motor,))
 
 zout = stateout[:,0]
 zvout = stateout[:,1]
