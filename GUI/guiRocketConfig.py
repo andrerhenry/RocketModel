@@ -14,6 +14,7 @@ def x(input): print(input) # Temp var
 class RocketConfigUi(QtWidgets.QWidget):
     def __init__(self, rocket: RocketConfig, parent = None):
         super(RocketConfigUi, self).__init__(parent)
+        self.rocket = rocket
        
         self.configLabel = QtWidgets.QLabel()
         self.configLabel.setGeometry(QtCore.QRect(0, 15, 201, 21))
@@ -29,7 +30,7 @@ class RocketConfigUi(QtWidgets.QWidget):
         self.rocketMassEdit = QtWidgets.QLineEdit()
         self.rocketMassEdit.setGeometry(QtCore.QRect(150, 50, 100, 20))
         self.rocketMassEdit.setText(str(rocket.rocket_mass_0))
-        self.rocketMassEdit.editingFinished.connect(lambda: x(self.rocketMassEdit.text()))
+        self.rocketMassEdit.editingFinished.connect(self.setRocketMass)
                 
         self.dragCoefLabel = QtWidgets.QLabel()
         self.dragCoefLabel.setGeometry(QtCore.QRect(0, 75, 100, 16))
@@ -55,8 +56,11 @@ class RocketConfigUi(QtWidgets.QWidget):
         formLayout.addRow(self.dragCoefLabel, self.dragCoefEdit)
         formLayout.addRow(self.diameterLabel, self.diameterEdit)
         
-    def func():
-        pass
+    def setRocketMass(self):
+        self.rocket.rocket_mass_0 = float(self.rocketMassEdit.text())
+        print(self.rocket.rocket_mass_0)
+        print(type(self.rocket.rocket_mass_0))
+        
 
 
 if __name__ == "__main__":
