@@ -1,29 +1,34 @@
 
 import sys
+import os
+
+# Add the parent directory to the system path to import classes
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from PySide6 import QtCore, QtGui, QtWidgets
 from Rocket_Config import RocketConfig
 
 def x(input): print(input) # Temp var 
 
 
-class Ui_widRocketConfig(QtWidgets.QWidget):
-    def __init__(self, parent = None):
-        super(Ui_widRocketConfig, self).__init__(parent)
+class RocketConfigUi(QtWidgets.QWidget):
+    def __init__(self, rocket: RocketConfig, parent = None):
+        super(RocketConfigUi, self).__init__(parent)
        
-        self.rocketNameLabel = QtWidgets.QLabel()
-        self.rocketNameLabel.setGeometry(QtCore.QRect(0, 15, 201, 21))
+        self.configLabel = QtWidgets.QLabel()
+        self.configLabel.setGeometry(QtCore.QRect(0, 15, 201, 21))
         font = QtGui.QFont()
         font.setBold(True)
-        self.rocketNameLabel.setFont(font)
-        self.rocketNameLabel.setText("labelRocketName")
+        self.configLabel.setFont(font)
+        self.configLabel.setText("Rocket Configuration:")
         
-        self.labelRocketMass = QtWidgets.QLabel()
-        self.labelRocketMass.setGeometry(QtCore.QRect(0, 50, 100, 16))
-        self.labelRocketMass.setText("Rocke Mass (kg):")
+        self.rocketMassLabel = QtWidgets.QLabel()
+        self.rocketMassLabel.setGeometry(QtCore.QRect(0, 50, 100, 16))
+        self.rocketMassLabel.setText("Rocket Mass (kg):")
         
         self.rocketMassEdit = QtWidgets.QLineEdit()
         self.rocketMassEdit.setGeometry(QtCore.QRect(150, 50, 100, 20))
-        self.rocketMassEdit.setText("editRocketMass")
+        self.rocketMassEdit.setText(str(rocket.rocket_mass_0))
         self.rocketMassEdit.editingFinished.connect(lambda: x(self.rocketMassEdit.text()))
                 
         self.dragCoefLabel = QtWidgets.QLabel()
@@ -45,8 +50,8 @@ class Ui_widRocketConfig(QtWidgets.QWidget):
         self.diameterEdit.editingFinished.connect(lambda: x(self.diameterEdit.text()))
 
         formLayout = QtWidgets.QFormLayout(self)
-        formLayout.addRow(self.rocketNameLabel)
-        formLayout.addRow(self.labelRocketMass, self.rocketMassEdit)
+        formLayout.addRow(self.configLabel)
+        formLayout.addRow(self.rocketMassLabel, self.rocketMassEdit)
         formLayout.addRow(self.dragCoefLabel, self.dragCoefEdit)
         formLayout.addRow(self.diameterLabel, self.diameterEdit)
         
@@ -63,7 +68,7 @@ if __name__ == "__main__":
     
     # testing .ui
     app = QtWidgets.QApplication()
-    ui = Ui_widRocketConfig()
+    ui = RocketConfigUi(rocket)
     ui.show()
     
     sys.exit(app.exec())
