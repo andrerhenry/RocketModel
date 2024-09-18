@@ -1,56 +1,70 @@
-# -*- coding: utf-8 -*-
 
-################################################################################
-## Form generated from reading UI file 'guiRocketConfig.ui'
-##
-## Created by: Qt User Interface Compiler version 6.7.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
+import sys
+from PySide6 import QtCore, QtGui, QtWidgets
+from Rocket_Config import RocketConfig
 
-from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect,)
-from PySide6.QtWidgets import ( QLabel, QLineEdit,)
+def x(input): print(input) # Temp var 
 
-class Ui_widget(object):
-    def setupUi(self, widget):
-        if not widget.objectName():
-            widget.setObjectName(u"widget")
-        widget.resize(209, 129)
-        self.labelRocketName = QLabel(widget)
-        self.labelRocketName.setObjectName(u"labelRocketName")
-        self.labelRocketName.setGeometry(QRect(0, 15, 201, 21))
+
+class Ui_widRocketConfig(QtWidgets.QWidget):
+    def __init__(self, parent = None):
+        super(Ui_widRocketConfig, self).__init__(parent)
+       
+        self.rocketNameLabel = QtWidgets.QLabel()
+        self.rocketNameLabel.setGeometry(QtCore.QRect(0, 15, 201, 21))
         font = QtGui.QFont()
         font.setBold(True)
-        self.labelRocketName.setFont(font)
-        self.editRocketMass = QLineEdit(widget)
-        self.editRocketMass.setObjectName(u"editRocketMass")
-        self.editRocketMass.setGeometry(QRect(100, 50, 100, 20))
-        self.labelRocketMass = QLabel(widget)
-        self.labelRocketMass.setObjectName(u"labelRocketMass")
-        self.labelRocketMass.setGeometry(QRect(0, 50, 100, 16))
-        self.labelCoeDrag = QLabel(widget)
-        self.labelCoeDrag.setObjectName(u"labelCoeDrag")
-        self.labelCoeDrag.setGeometry(QRect(0, 75, 100, 16))
-        self.labelDiameter = QLabel(widget)
-        self.labelDiameter.setObjectName(u"labelDiameter")
-        self.labelDiameter.setGeometry(QRect(0, 100, 100, 16))
-        self.editCoeDrag = QLineEdit(widget)
-        self.editCoeDrag.setObjectName(u"editCoeDrag")
-        self.editCoeDrag.setGeometry(QRect(100, 75, 100, 20))
-        self.editDiameter = QLineEdit(widget)
-        self.editDiameter.setObjectName(u"editDiameter")
-        self.editDiameter.setGeometry(QRect(100, 100, 100, 20))
+        self.rocketNameLabel.setFont(font)
+        self.rocketNameLabel.setText("labelRocketName")
+        
+        self.labelRocketMass = QtWidgets.QLabel()
+        self.labelRocketMass.setGeometry(QtCore.QRect(0, 50, 100, 16))
+        self.labelRocketMass.setText("Rocke Mass (kg):")
+        
+        self.rocketMassEdit = QtWidgets.QLineEdit()
+        self.rocketMassEdit.setGeometry(QtCore.QRect(150, 50, 100, 20))
+        self.rocketMassEdit.setText("editRocketMass")
+        self.rocketMassEdit.editingFinished.connect(lambda: x(self.rocketMassEdit.text()))
+                
+        self.dragCoefLabel = QtWidgets.QLabel()
+        self.dragCoefLabel.setGeometry(QtCore.QRect(0, 75, 100, 16))
+        self.dragCoefLabel.setText("C_d: ")
+        
+        self.dragCoefEdit = QtWidgets.QLineEdit()
+        self.dragCoefEdit.setGeometry(QtCore.QRect(150, 75, 100, 20))
+        self.dragCoefEdit.setText("editCoeDrag")
+        self.dragCoefEdit.editingFinished.connect(lambda: x(self.dragCoefEdit.text()))
+                
+        self.diameterLabel = QtWidgets.QLabel()
+        self.diameterLabel.setGeometry(QtCore.QRect(0, 100, 100, 16))
+        self.diameterLabel.setText("Diameter (m):")
+        
+        self.diameterEdit = QtWidgets.QLineEdit()
+        self.diameterEdit.setGeometry(QtCore.QRect(150, 100, 100, 20))
+        self.diameterEdit.setText("editDiameter")
+        self.diameterEdit.editingFinished.connect(lambda: x(self.diameterEdit.text()))
 
-        self.retranslateUi(widget)
+        formLayout = QtWidgets.QFormLayout(self)
+        formLayout.addRow(self.rocketNameLabel)
+        formLayout.addRow(self.labelRocketMass, self.rocketMassEdit)
+        formLayout.addRow(self.dragCoefLabel, self.dragCoefEdit)
+        formLayout.addRow(self.diameterLabel, self.diameterEdit)
+        
+    def func():
+        pass
 
-        QMetaObject.connectSlotsByName(widget)
-    # setupUi
 
-    def retranslateUi(self, widget):
-        widget.setWindowTitle(QCoreApplication.translate("widget", u"Form", None))
-        self.labelRocketName.setText(QCoreApplication.translate("widget", u"Rocket Name:", None))
-        self.labelRocketMass.setText(QCoreApplication.translate("widget", u"Rocket Mass (kg)", None))
-        self.labelCoeDrag.setText(QCoreApplication.translate("widget", u"Cd", None))
-        self.labelDiameter.setText(QCoreApplication.translate("widget", u"Diameter (m)", None))
-    # retranslateUi
-
+if __name__ == "__main__":
+    # testing rocket data
+    rocket_mass_0 = 32098/1000 # kilograms
+    drag_coefficient = 0.36 #cf
+    diameter = 0.155 # meters
+    rocket = RocketConfig(rocket_mass_0, drag_coefficient, diameter)
+    
+    # testing .ui
+    app = QtWidgets.QApplication()
+    ui = Ui_widRocketConfig()
+    ui.show()
+    
+    sys.exit(app.exec())
+    
