@@ -1,11 +1,10 @@
 
 import sys
 import os
-
-# Add the parent directory to the system path to import classes
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from PySide6 import QtCore, QtGui, QtWidgets
+
+# Add the parent directory to the system path for user class import
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Rocket_Config import RocketConfig
 
 def x(input): print(input) # Temp var 
@@ -38,8 +37,8 @@ class RocketConfigUi(QtWidgets.QWidget):
         
         self.dragCoefEdit = QtWidgets.QLineEdit()
         self.dragCoefEdit.setGeometry(QtCore.QRect(150, 75, 100, 20))
-        self.dragCoefEdit.setText("editCoeDrag")
-        self.dragCoefEdit.editingFinished.connect(lambda: x(self.dragCoefEdit.text()))
+        self.dragCoefEdit.setText(str(rocket.drag_coefficient))
+        self.dragCoefEdit.editingFinished.connect(self.setRocketDragCoef)
                 
         self.diameterLabel = QtWidgets.QLabel()
         self.diameterLabel.setGeometry(QtCore.QRect(0, 100, 100, 16))
@@ -47,8 +46,8 @@ class RocketConfigUi(QtWidgets.QWidget):
         
         self.diameterEdit = QtWidgets.QLineEdit()
         self.diameterEdit.setGeometry(QtCore.QRect(150, 100, 100, 20))
-        self.diameterEdit.setText("editDiameter")
-        self.diameterEdit.editingFinished.connect(lambda: x(self.diameterEdit.text()))
+        self.diameterEdit.setText(str(rocket.diameter))
+        self.diameterEdit.editingFinished.connect(self.setRocketDiameter)
 
         formLayout = QtWidgets.QFormLayout(self)
         formLayout.addRow(self.configLabel)
@@ -61,6 +60,17 @@ class RocketConfigUi(QtWidgets.QWidget):
         print(self.rocket.rocket_mass_0)
         print(type(self.rocket.rocket_mass_0))
         
+    def setRocketDragCoef(self):
+        self.rocket.drag_coefficient = float(self.dragCoefEdit.text())
+        print(self.rocket.drag_coefficient)
+        print(type(self.rocket.drag_coefficient))
+    
+    
+    def setRocketDiameter(self):
+        self.rocket.diameter = float(self.diameterEdit.text())
+        print(self.rocket.diameter)
+        print(type(self.rocket.diameter))
+    
 
 
 if __name__ == "__main__":
