@@ -9,10 +9,6 @@ class RocketConfig:
             drag_coefficient (float): Coefficient of aerodynamic drag - unitless
             diameter (float): Diameter of rocket - meters
         """
-        # Rocket Parameters with Defualt values
-        #"""it is possible to set diameter and xsec area independently 
-        #look in to fixing
-        
         self.rocket_mass_0 = rocket_mass_0
         self.drag_coefficient = drag_coefficient
         self._diameter = diameter
@@ -25,30 +21,36 @@ class RocketConfig:
     
     @diameter.setter
     def diameter(self, new_diameter):
+        # Set Cross sectional aera on chagne of diameter
         self._cross_sect_area = self.cross_sect_area_calc(new_diameter)
         self._diameter = new_diameter
-        
     
-    
-    def cross_sect_area_calc(self, diameter) -> float:
-        return pi*(diameter/2)**2  # meters^2 
-        
+    def cross_sect_area_calc(self, diameter: float) -> float:
+        """Calcualte the cross sectional area
 
+        Args:
+            diameter (float): Diameter of Rocekt - meteres
+
+        Returns:
+            float: Cross secontial aera - meters^2
+        """        
+        return pi*(diameter/2)**2
+        
 
 class Motor():
     GRAVITY = -9.81
     
-    def __init__(self, mass_fuel: float, trust_avg: float, total_impulse: float, total_burn_time: float) -> None:
+    def __init__(self, mass_fuel: float, thrust_avg: float, total_impulse: float, total_burn_time: float) -> None:
         """Inital motor perameters_summary_
 
         Args:
             mass_fuel (float): Mass of fuel to burned - Kg
-            trust_avg (float): Average trust of motor - Newtons
+            thrust_avg (float): Average trust of motor - Newtons
             total_impulse (float): Total Impulse  - Newton*seconds
             total_burn_time (float): Burn Time - seconds
         """        
         self.mass_fuel = mass_fuel
-        self.trust_avg = trust_avg
+        self.thrust_avg = thrust_avg
         self.total_impulse = total_impulse
         self.burn_time = total_burn_time
         self.ISP = self.spcific_impulse()
@@ -68,7 +70,7 @@ class Motor():
         """
                         
         if (t < self.burn_time):
-            f_thrust = self.trust_avg
+            f_thrust = self.thrust_avg
         else:
             f_thrust = 0.0
             
