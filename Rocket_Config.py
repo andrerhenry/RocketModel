@@ -15,9 +15,20 @@ class RocketConfig:
         
         self.rocket_mass_0 = rocket_mass_0
         self.drag_coefficient = drag_coefficient
-        self.diameter = diameter
-        self.cross_sect_area = self.cross_sect_area_calc(self.diameter)
+        self._diameter = diameter
+        self._cross_sect_area = self.cross_sect_area_calc(self.diameter)
         pass
+    
+    @property
+    def diameter(self):
+        return self._diameter
+    
+    @diameter.setter
+    def diameter(self, new_diameter):
+        self._cross_sect_area = self.cross_sect_area_calc(new_diameter)
+        self._diameter = new_diameter
+        
+    
     
     def cross_sect_area_calc(self, diameter) -> float:
         return pi*(diameter/2)**2  # meters^2 
@@ -73,6 +84,7 @@ if __name__ == "__main__":
     drag_coefficient = 0.36 #cf
     diameter = 0.155 # meters
     rocket = RocketConfig(rocket_mass_0, drag_coefficient, diameter)
+    print()
     
     # n Rocket Motor Perameters
     FuelMass = 7512.0/1000.0 # kg
@@ -80,6 +92,6 @@ if __name__ == "__main__":
     TotalImpulse = 14041.0 # Ns
     burn_time = 4.4 #s
     Nmotor = Motor(FuelMass, ThrustAvg, TotalImpulse, burn_time)
-    
-    
-    print(Nmotor.motor_output(1), type(Nmotor.motor_output(1)) )
+   
+   
+    #print(Nmotor.motor_output(1), type(Nmotor.motor_output(1)) )

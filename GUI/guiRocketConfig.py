@@ -65,11 +65,15 @@ class RocketConfigUi(QtWidgets.QWidget):
         print(self.rocket.drag_coefficient)
         print(type(self.rocket.drag_coefficient))
     
-    
     def setRocketDiameter(self):
+        print("\n\n")
+        print(self.rocket.diameter)
+        print(self.rocket._cross_sect_area)
         self.rocket.diameter = float(self.diameterEdit.text())
         print(self.rocket.diameter)
         print(type(self.rocket.diameter))
+        print(self.rocket._cross_sect_area)
+        
     
 
 
