@@ -29,48 +29,65 @@ class MotorConfigUi(QtWidgets.QWidget):
         self.fuelMassEdit.setText(str(self.motor.mass_fuel))
         self.fuelMassEdit.editingFinished.connect(self.setFuelMass)
                 
-        self.dragCoefLabel = QtWidgets.QLabel()
-        self.dragCoefLabel.setGeometry(QtCore.QRect(0, 75, 100, 16))
-        self.dragCoefLabel.setText("C_d: ")
+        self.avgThrustLabel = QtWidgets.QLabel()
+        self.avgThrustLabel.setGeometry(QtCore.QRect(0, 75, 100, 16))
+        self.avgThrustLabel.setText("Average Thrust (N):")
         
-        self.dragCoefEdit = QtWidgets.QLineEdit()
-        self.dragCoefEdit.setGeometry(QtCore.QRect(150, 75, 100, 20))
-        self.dragCoefEdit.setText(str(rocket.drag_coefficient))
-        self.dragCoefEdit.editingFinished.connect(self.setRocketDragCoef)
+        self.avgThrustEdit = QtWidgets.QLineEdit()
+        self.avgThrustEdit.setGeometry(QtCore.QRect(150, 75, 100, 20))
+        self.avgThrustEdit.setText(str(self.motor.thrust_avg))
+        self.avgThrustEdit.editingFinished.connect(self.setAvgThrust)
                 
-        self.diameterLabel = QtWidgets.QLabel()
-        self.diameterLabel.setGeometry(QtCore.QRect(0, 100, 100, 16))
-        self.diameterLabel.setText("Diameter (m):")
+        self.totalImpulseLabel = QtWidgets.QLabel()
+        self.totalImpulseLabel.setGeometry(QtCore.QRect(0, 100, 100, 16))
+        self.totalImpulseLabel.setText("Total Impuse (N*s):")
         
-        self.diameterEdit = QtWidgets.QLineEdit()
-        self.diameterEdit.setGeometry(QtCore.QRect(150, 100, 100, 20))
-        self.diameterEdit.setText(str(rocket.diameter))
-        self.diameterEdit.editingFinished.connect(self.setRocketDiameter)
+        self.totalImpulseEdit = QtWidgets.QLineEdit()
+        self.totalImpulseEdit.setGeometry(QtCore.QRect(150, 100, 100, 20))
+        self.totalImpulseEdit.setText(str(self.motor.total_impulse))
+        self.totalImpulseEdit.editingFinished.connect(self.setTotalImpulse)
+        
+        self.burnTimeLabel = QtWidgets.QLabel()
+        self.burnTimeLabel.setGeometry(QtCore.QRect(0, 100, 100, 16))
+        self.burnTimeLabel.setText("Burn time: (s):")
+        
+        self.burnTimeEdit = QtWidgets.QLineEdit()
+        self.burnTimeEdit.setGeometry(QtCore.QRect(150, 100, 100, 20))
+        self.burnTimeEdit.setText(str(self.motor.burn_time))
+        self.burnTimeEdit.editingFinished.connect(self.setBurnTime)
+        
+        self.ISPLabel = QtWidgets.QLabel()
+        self.ISPLabel.setGeometry(QtCore.QRect(0, 100, 100, 16))
+        self.ISPLabel.setText("ISP (s):")
+        
+        self.ISPvalueLabel = QtWidgets.QLabel()
+        self.ISPvalueLabel.setGeometry(QtCore.QRect(150, 100, 100, 20))
+        self.ISPvalueLabel.setText(str(self.motor.ISP))
 
         formLayout = QtWidgets.QFormLayout(self)
         formLayout.addRow(self.configLabel)
         formLayout.addRow(self.fuelMassLabel, self.fuelMassEdit)
-        formLayout.addRow(self.dragCoefLabel, self.dragCoefEdit)
-        formLayout.addRow(self.diameterLabel, self.diameterEdit)
+        formLayout.addRow(self.avgThrustLabel, self.avgThrustEdit)
+        formLayout.addRow(self.burnTimeLabel, self.burnTimeEdit)
+        formLayout.addRow(self.totalImpulseLabel, self.totalImpulseEdit)
+        formLayout.addRow(self.ISPLabel, self.ISPvalueLabel)
         
     def setFuelMass(self):
-        self.motor.rocket_mass_0 = float(self.fuelMassEdit.text())
-        print(self.motor.rocket_mass_0)
-        print(type(self.motor.rocket_mass_0))
+        self.motor.mass_fuel = float(self.fuelMassEdit.text())
+        print(self.motor.mass_fuel)
         
-    def setRocketDragCoef(self):
-        self.motor.drag_coefficient = float(self.dragCoefEdit.text())
-        print(self.motor.drag_coefficient)
-        print(type(self.motor.drag_coefficient))
-    
-    def setRocketDiameter(self):
-        print("\n\n")
-        print(self.motor.diameter)
-        print(self.motor._cross_sect_area)
-        self.motor.diameter = float(self.diameterEdit.text())
-        print(self.motor.diameter)
-        print(type(self.motor.diameter))
-        print(self.motor._cross_sect_area)
+    def setAvgThrust(self):
+        self.motor.thrust_avg = float(self.avgThrustEdit.text())
+        print(self.motor.thrust_avg)
+        
+    def setBurnTime(self):
+        self.motor.burn_time = float(self.burnTimeEditEdit.text())
+        print(self.motor.burn_time)
+            
+    def setTotalImpulse(self):
+        self.motor.total_impulse = float(self.totalImpulseEdit.text())
+        print(self.motor.total_impulse)
+        
         
     
 
@@ -89,7 +106,7 @@ if __name__ == "__main__":
     
     # testing .ui
     app = QtWidgets.QApplication()
-    ui = RocketConfigUi(Nmotor)
+    ui = MotorConfigUi(Nmotor)
     ui.show()
     
     sys.exit(app.exec())
