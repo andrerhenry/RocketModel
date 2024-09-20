@@ -1,0 +1,10 @@
+# Ignore Python compiled files
+*.pyc
+__pycache__/
+
+# Ingore old and test .py files
+
+FilghtSimMod8.py
+FlightSimMod9.py
+temp.py
+tempCodeRunnerFile.py
