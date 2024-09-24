@@ -2,6 +2,7 @@
 import sys
 import os
 from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtCore import Slot
 
 # Add the parent directory to the system path for user class import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -10,7 +11,7 @@ from Rocket_Config import RocketConfig
 
 class RocketConfigUi(QtWidgets.QWidget):
     def __init__(self, rocket: RocketConfig, parent = None):
-        super(RocketConfigUi, self).__init__(parent)
+        super().__init__(parent)
         self.rocket = rocket
        
         self.configLabel = QtWidgets.QLabel()
@@ -53,16 +54,19 @@ class RocketConfigUi(QtWidgets.QWidget):
         formLayout.addRow(self.dragCoefLabel, self.dragCoefEdit)
         formLayout.addRow(self.diameterLabel, self.diameterEdit)
         
+    @Slot()
     def setRocketMass(self):
         self.rocket.rocket_mass_0 = float(self.rocketMassEdit.text())
         print(self.rocket.rocket_mass_0)
         print(type(self.rocket.rocket_mass_0))
-        
+    
+    @Slot()
     def setRocketDragCoef(self):
         self.rocket.drag_coefficient = float(self.dragCoefEdit.text())
         print(self.rocket.drag_coefficient)
         print(type(self.rocket.drag_coefficient))
     
+    @Slot()
     def setRocketDiameter(self):
         print("\n\n")
         print(self.rocket.diameter)
