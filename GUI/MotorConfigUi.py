@@ -1,4 +1,3 @@
-
 import sys
 import os
 from PySide6 import QtCore, QtGui, QtWidgets
@@ -10,7 +9,7 @@ from Rocket_Config import Motor
 
 class MotorConfigUi(QtWidgets.QWidget):
     def __init__(self, motor: Motor, parent = None):
-        super(MotorConfigUi, self).__init__(parent)
+        super().__init__(parent)
         self.motor = motor
        
         self.configLabel = QtWidgets.QLabel()
