@@ -1,6 +1,7 @@
 import sys
 import os
 from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtCore import Slot
 
 # Add the parent directory to the system path for user class import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -13,7 +14,7 @@ class MotorConfigUi(QtWidgets.QWidget):
         self.motor = motor
        
         self.configLabel = QtWidgets.QLabel()
-        self.configLabel.setGeometry(QtCore.QRect(0, 15, 201, 21))
+        self.configLabel.setGeometry(QtCore.QRect(0, 15, 175, 21))
         font = QtGui.QFont()
         font.setBold(True)
         self.configLabel.setFont(font)
@@ -61,7 +62,7 @@ class MotorConfigUi(QtWidgets.QWidget):
         
         self.ISPvalueLabel = QtWidgets.QLabel()
         self.ISPvalueLabel.setGeometry(QtCore.QRect(150, 100, 100, 20))
-        self.ISPvalueLabel.setText(str(self.motor.ISP))
+        self.ISPvalueLabel.setText("{:.2f}".format(self.motor.ISP))
 
         formLayout = QtWidgets.QFormLayout(self)
         formLayout.addRow(self.configLabel)
@@ -70,19 +71,25 @@ class MotorConfigUi(QtWidgets.QWidget):
         formLayout.addRow(self.burnTimeLabel, self.burnTimeEdit)
         formLayout.addRow(self.totalImpulseLabel, self.totalImpulseEdit)
         formLayout.addRow(self.ISPLabel, self.ISPvalueLabel)
+        self.setFixedWidth(200)
+        print(self.width())
         
+    @Slot()
     def setFuelMass(self):
         self.motor.mass_fuel = float(self.fuelMassEdit.text())
         print(self.motor.mass_fuel)
-        
+    
+    @Slot()
     def setAvgThrust(self):
         self.motor.thrust_avg = float(self.avgThrustEdit.text())
         print(self.motor.thrust_avg)
-        
+    
+    @Slot()
     def setBurnTime(self):
         self.motor.burn_time = float(self.burnTimeEditEdit.text())
         print(self.motor.burn_time)
-            
+    
+    @Slot()     
     def setTotalImpulse(self):
         self.motor.total_impulse = float(self.totalImpulseEdit.text())
         print(self.motor.total_impulse)

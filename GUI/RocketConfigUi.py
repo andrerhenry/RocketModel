@@ -15,7 +15,7 @@ class RocketConfigUi(QtWidgets.QWidget):
         self.rocket = rocket
        
         self.configLabel = QtWidgets.QLabel()
-        self.configLabel.setGeometry(QtCore.QRect(0, 15, 201, 21))
+        self.configLabel.setGeometry(QtCore.QRect(0, 15, 175, 21))
         font = QtGui.QFont()
         font.setBold(True)
         self.configLabel.setFont(font)
@@ -53,6 +53,7 @@ class RocketConfigUi(QtWidgets.QWidget):
         formLayout.addRow(self.rocketMassLabel, self.rocketMassEdit)
         formLayout.addRow(self.dragCoefLabel, self.dragCoefEdit)
         formLayout.addRow(self.diameterLabel, self.diameterEdit)
+        self.setFixedWidth(200)
         
     @Slot()
     def setRocketMass(self):
