@@ -11,8 +11,6 @@ from RocketConfigUi import RocketConfigUi
 from MotorConfigUi import MotorConfigUi
 #from Rocket_Config import RocketConfig
 
-print(os.getcwd())  # Prints the current working directory
-
 
 class MainUi(QtWidgets.QMainWindow):
     def __init__(self, rocket: RocketConfig, motor: Motor, parent = None):
@@ -20,17 +18,15 @@ class MainUi(QtWidgets.QMainWindow):
         
         centralWidget = QtWidgets.QWidget()
         configWidget = QtWidgets.QWidget()
-        configWidget.setFixedWidth(500)
+        configWidget.setFixedWidth(225)
         configWidget.layoutDirection().LeftToRight
         
         self.logoLabel = QtWidgets.QLabel()
-        #logoPath = QPixmap("RocketModel/GUI/HornetLogo.png").scaledToWidth(configWidget.width())
         logoPath = QPixmap("RocketModel/GUI/HornetLogo.png").scaledToWidth(configWidget.width(), mode = Qt.SmoothTransformation)
+        logoPath = QPixmap("RocketModel/GUI/HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
         self.logoLabel.setPixmap(logoPath)
         #self.logoLabel.setPixmap(logoPath.scaled(self.logoLabel.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))        
-        #logoLabel.setPixmap(logoPath.scaled(logoLabel.size(), Qt.AspectRatioMode.IgnoreAspectRatio, Qt.TransformationMode.SmoothTransformation))
-        
-        
+               
 
         #self.rocket
         rocketConfigWidget = RocketConfigUi(rocket, self)
@@ -51,7 +47,6 @@ class MainUi(QtWidgets.QMainWindow):
         
         
         self.addAction
-
         # Exit QAction
         exit_action = QAction("Exit", self)
         exit_action.setShortcut(QKeySequence.Quit)
