@@ -85,9 +85,14 @@ time = np.arange(0, 63, 0.001)
 # Integratoin of model
 stateout = sci.odeint(Derivative, stateinitial, time, args=(rocket_Ambition, n_motor,))
 
+
+
+
 zout = stateout[:,0]
 zvout = stateout[:,1]
 massout = stateout[:,2]
+
+
 
 # Results 
 print('\n\n\nResults:')
@@ -120,4 +125,6 @@ plt.ylabel('mass (kg)')
 plt.grid()
 
 plt.show() """
+
+
 

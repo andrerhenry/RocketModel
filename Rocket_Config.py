@@ -24,6 +24,10 @@ class RocketConfig:
         # Set Cross sectional aera on change of diameter
         self._cross_sect_area = self.cross_sect_area_calc(new_diameter)
         self._diameter = new_diameter
+
+    @property
+    def cross_sect_area(self):
+        return self._cross_sect_area
     
     def cross_sect_area_calc(self, diameter: float) -> float:
         """Calcualte the cross sectional area
@@ -101,6 +105,7 @@ class Motor():
         mass_dot = f_thrust/exit_velcoity
         return f_thrust, mass_dot
         
+        __doc__ = __init__.__doc__
         
 
 if __name__ == "__main__":
