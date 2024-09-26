@@ -83,10 +83,13 @@ stateinitial = np.array([z0, zv0, rocket_Ambition.rocket_mass_0])
 
 time = np.arange(0, 63, 0.001)
 # Integratoin of model
-stateout = sci.odeint(Derivative, stateinitial, time, args=(rocket_Ambition, n_motor,))
 
 
+def simulation(inital_conditions: np.array, time: np.array, rocket: RocketConfig, motor: Motor):
+    stateout = sci.odeint(Derivative, inital_conditions, time, args=(rocket, motor,))
+    return stateout
 
+stateout = simulation(stateinitial, time, rocket_Ambition, n_motor)
 
 zout = stateout[:,0]
 zvout = stateout[:,1]
