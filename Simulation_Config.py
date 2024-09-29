@@ -4,6 +4,54 @@ import scipy.integrate as sci
 from Rocket_Config import RocketConfig, Motor
 from Aero_Config import Aero
 
+class Time:
+    def __init__(self, start_time: int, end_time: int, step: float):
+        """Holds time data perameteres \n
+        time_array() function generates the time array need for simulation
+
+        Args:
+            start_time (int): Start time (sec)
+            end_time (int): End time (sec)
+            step (float): Simulation step time (sec)
+        """        
+        self._start_time = start_time
+        self._end_time = end_time
+        self._step = step
+    
+    @property
+    def start_time(self, new_start_time):
+        return self._start_time
+    
+    @start_time.setter
+    def start_time(self, new_start_time):
+        self._start_time = new_start_time
+    
+    @property
+    def end_time(self, new_end_time):
+        return self._end_time
+    
+    @end_time.setter
+    def end_time(self, new_end_time):
+        self._end_time = new_end_time
+    
+    @property
+    def step(self, new_step):
+        return self._step
+    
+    @step.setter
+    def step(self, new_step):
+        self._step = new_step
+    
+    def time_array() -> np.ndarray:
+        """Generates a time array to simulate across
+
+        Returns:
+            np.ndarray: Time array
+        """        
+        return np.arange(0, 63, 0.001)
+        
+    
+
 
 # Main differential equation 
 def Derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> np.array:
@@ -47,6 +95,17 @@ def Derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> n
 
 
 def simulation(inital_conditions: np.array, time: np.array, rocket: RocketConfig, motor: Motor):
+    """Main Simulation fucntion that 
+
+    Args:
+        inital_conditions (np.array): _description_
+        time (np.array): _description_
+        rocket (RocketConfig): _description_
+        motor (Motor): _description_
+
+    Returns:
+        _type_: _description_
+    """    
     stateout = sci.odeint(Derivative, inital_conditions, time, args=(rocket, motor,))
     
     zout = stateout[:,0]
