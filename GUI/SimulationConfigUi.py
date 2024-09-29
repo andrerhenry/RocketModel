@@ -6,7 +6,7 @@ from PySide6.QtCore import Slot
 
 # Add the parent directory to the system path for user class import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from FlightCalculator import *
+
 
 
 class SimulationUi(QtWidgets.QWidget):
@@ -17,7 +17,7 @@ class SimulationUi(QtWidgets.QWidget):
         
         self.runButton = QtWidgets.QPushButton("Run Simulation")
         self.runButton.setFixedSize(100,25)
-        self.runButton.clicked.connect(self.runSimulation)
+        self.runButton.clicked.connect(self.runButtonClicked)
        
         self.configLabel = QtWidgets.QLabel()
         self.configLabel.setGeometry(QtCore.QRect(0, 15, 175, 21))
@@ -35,9 +35,10 @@ class SimulationUi(QtWidgets.QWidget):
         
         
     @Slot()
-    def runSimulation(self):
+    def runButtonClicked(self):
         print("run simulation")
-        simulation(stateinitial, time, rocket_Ambition, n_motor)
+        self.parent.runSimulation()
+        
     
 
         

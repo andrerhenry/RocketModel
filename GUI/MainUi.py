@@ -7,14 +7,19 @@ from PySide6.QtCore import Slot, Qt
 # Add the parent directory to the system path for user class import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Rocket_Config import RocketConfig, Motor
+from Simulation_Config import simulation, Time
 from RocketConfigUi import RocketConfigUi
 from MotorConfigUi import MotorConfigUi
+from SimulationConfigUi import SimulationUi
 #from FlightCalculator import *
 
 
 class MainUi(QtWidgets.QMainWindow):
-    def __init__(self, rocket: RocketConfig, motor: Motor, parent = None):
+    def __init__(self, rocket: RocketConfig, motor: Motor, time: Time, parent = None):
         super().__init__(parent)
+        self. rocket = rocket
+        self. motor = motor
+        self.time = time
         
         centralWidget = QtWidgets.QWidget()
         configWidget = QtWidgets.QWidget()
@@ -28,9 +33,11 @@ class MainUi(QtWidgets.QMainWindow):
         #self.logoLabel.setPixmap(logoPath.scaled(self.logoLabel.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))        
                
 
-        #self.rocket
+        
         rocketConfigWidget = RocketConfigUi(rocket, self)
         motorConfigWidget = MotorConfigUi(motor, self)
+        simulationConfigWidget = SimulationUi(self)
+        
         
         configLayout = QtWidgets.QVBoxLayout()
         configLayout.addWidget(self.logoLabel)
@@ -43,10 +50,16 @@ class MainUi(QtWidgets.QMainWindow):
         
         centralLayout = QtWidgets.QHBoxLayout()
         centralLayout.addWidget(configWidget, alignment = Qt.AlignmentFlag.AlignLeft)
+        centralLayout.addWidget(simulationConfigWidget, alignment=Qt.AlignmentFlag.AlignTop)
         centralWidget.setLayout(centralLayout)
         self.setCentralWidget(centralWidget)
         
-        
+    @Slot()
+    def runSimulation(self):
+        inital_conditions = [0, 0, rocket.rocket_mass_0]
+        simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
+            
+            
         
         self.addAction
         # Exit QAction
@@ -78,10 +91,12 @@ if __name__ == "__main__":
     burn_time = 4.4 #s
     Nmotor = Motor(FuelMass, ThrustAvg, TotalImpulse, burn_time)
     
+    time = Time(0, 63, 0.001)
+    
     
     # testing .ui
     app = QtWidgets.QApplication(sys.argv)
-    ui = MainUi(rocket, Nmotor)
+    ui = MainUi(rocket, Nmotor, time)
     ui.show()
     
     sys.exit(app.exec())
