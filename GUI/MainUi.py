@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Rocket_Config import RocketConfig, Motor
 from RocketConfigUi import RocketConfigUi
 from MotorConfigUi import MotorConfigUi
-#from Rocket_Config import RocketConfig
+#from FlightCalculator import *
 
 
 class MainUi(QtWidgets.QMainWindow):
@@ -37,6 +37,8 @@ class MainUi(QtWidgets.QMainWindow):
         configLayout.addWidget(rocketConfigWidget)
         configLayout.addWidget(motorConfigWidget)
         configWidget.setLayout(configLayout)
+        
+        
         
         
         centralLayout = QtWidgets.QHBoxLayout()

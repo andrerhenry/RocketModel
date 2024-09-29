@@ -87,6 +87,20 @@ time = np.arange(0, 63, 0.001)
 
 def simulation(inital_conditions: np.array, time: np.array, rocket: RocketConfig, motor: Motor):
     stateout = sci.odeint(Derivative, inital_conditions, time, args=(rocket, motor,))
+    
+    zout = stateout[:,0]
+    zvout = stateout[:,1]
+    massout = stateout[:,2]
+
+
+
+    # Results 
+    print('\n\n\nResults:')
+    print(f'Apogee:  {np.max(zout):.2f}')
+    print(f'Maxium Velocity:  {np.max(zvout):.2f}')
+    print(f'ISP:  {np.max(n_motor.ISP):.2f}')
+    print('\n')
+
     return stateout
 
 stateout = simulation(stateinitial, time, rocket_Ambition, n_motor)
