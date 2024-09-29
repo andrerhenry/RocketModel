@@ -42,19 +42,19 @@ class Time:
     def step(self, new_step):
         self._step = new_step
     
-    def time_array() -> np.ndarray:
+    def time_array(self) -> np.ndarray:
         """Generates a time array to simulate across
 
         Returns:
             np.ndarray: Time array
         """        
-        return np.arange(0, 63, 0.001)
+        return np.arange(self._start_time, self._end_time, self._step)
         
     
 
 
 # Main differential equation 
-def Derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> np.array:
+def Derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> np.ndarray:
     """State space equation to be integrated numericaly. 
 
     Args:
@@ -64,7 +64,7 @@ def Derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> n
         motor (Motor): Motor class conatin peramters/methods of the motor
 
     Returns:
-        np.array: State array dervivative to be integrated [altitude_dot - m/s, velcoity_dot - m/s**2, mass_dot - kg/s]
+        np.ndarray: State array dervivative to be integrated [altitude_dot - m/s, velcoity_dot - m/s**2, mass_dot - kg/s]
     """    
     # State vector
     altitude = state[0]
@@ -94,19 +94,19 @@ def Derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> n
 
 
 
-def simulation(inital_conditions: np.array, time: np.array, rocket: RocketConfig, motor: Motor):
-    """Main Simulation fucntion that 
+def simulation(inital_conditions: np.array, time_array: np.array, rocket: RocketConfig, motor: Motor) -> np.ndarray:
+    """Main Simulation fucntion that integrate the system dynamics
 
     Args:
-        inital_conditions (np.array): _description_
-        time (np.array): _description_
+        inital_conditions (np.array): Inital condition of the system [altitude - m, velocity - m/s, mass -kg]
+        time_array (np.array): Time array (sec)
         rocket (RocketConfig): _description_
         motor (Motor): _description_
 
     Returns:
-        _type_: _description_
+        np.ndarray: State vector of simulation data [altitude - m, velocity - m/s, mass -kg]
     """    
-    stateout = sci.odeint(Derivative, inital_conditions, time, args=(rocket, motor,))
+    stateout = sci.odeint(Derivative, inital_conditions, time_array, args=(rocket, motor,))
     
     zout = stateout[:,0]
     zvout = stateout[:,1]

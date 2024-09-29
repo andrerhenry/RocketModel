@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import scipy.integrate as sci
 from Rocket_Config import RocketConfig, Motor
 from Aero_Config import Aero
-from Simulation_Config import simulation
+from Simulation_Config import simulation, Time
 
 plt.ion # Interactive mode in plots
 
@@ -45,13 +45,10 @@ zv0 = 0 # m/s
 za0 = 0 # m/s**2
 stateinitial = np.array([z0, zv0, rocket_Ambition.rocket_mass_0])
 
-time = np.arange(0, 63, 0.001)
+time = Time(0, 63, 0.001)
 # Integratoin of model
 
-
-
-
-stateout = simulation(stateinitial, time, rocket_Ambition, n_motor)
+stateout = simulation(stateinitial, time.time_array(), rocket_Ambition, n_motor)
 
 zout = stateout[:,0]
 zvout = stateout[:,1]
