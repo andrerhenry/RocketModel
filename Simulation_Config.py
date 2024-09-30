@@ -99,7 +99,7 @@ class Time:
         self._step = step
     
     @property
-    def start_time(self, new_start_time):
+    def start_time(self):
         return self._start_time
     
     @start_time.setter
@@ -107,7 +107,7 @@ class Time:
         self._start_time = new_start_time
     
     @property
-    def end_time(self, new_end_time):
+    def end_time(self):
         return self._end_time
     
     @end_time.setter
@@ -115,7 +115,7 @@ class Time:
         self._end_time = new_end_time
     
     @property
-    def step(self, new_step):
+    def step(self):
         return self._step
     
     @step.setter
