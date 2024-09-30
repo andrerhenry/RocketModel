@@ -11,6 +11,7 @@ from Simulation_Config import simulation, Time
 from RocketConfigUi import RocketConfigUi
 from MotorConfigUi import MotorConfigUi
 from SimulationConfigUi import SimulationUi
+import FigureWidget
 #from FlightCalculator import *
 
 
@@ -37,6 +38,7 @@ class MainUi(QtWidgets.QMainWindow):
         rocketConfigWidget = RocketConfigUi(self.rocket, self)
         motorConfigWidget = MotorConfigUi(self.motor, self)
         simulationConfigWidget = SimulationUi(self.time, self)
+        figureWidget = FigureWidget.ApplicationWindow()
         
         configLayout = QtWidgets.QVBoxLayout()
         configLayout.addWidget(self.logoLabel)
@@ -50,6 +52,7 @@ class MainUi(QtWidgets.QMainWindow):
         centralLayout = QtWidgets.QHBoxLayout()
         centralLayout.addWidget(configWidget, alignment = Qt.AlignmentFlag.AlignLeft)
         centralLayout.addWidget(simulationConfigWidget, alignment=Qt.AlignmentFlag.AlignTop)
+        centralLayout.addWidget(figureWidget)
         centralWidget.setLayout(centralLayout)
         self.setCentralWidget(centralWidget)
         

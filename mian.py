@@ -11,12 +11,21 @@
 """
 __version__ = "1.0.0"
 
+import sys
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate as sci
+
+from PySide6 import QtWidgets
+from PySide6.QtGui import QAction, QKeySequence, QPixmap
+from PySide6.QtCore import Slot, Qt
+
 from Rocket_Config import RocketConfig, Motor
 from Aero_Config import Aero
 from Simulation_Config import simulation, Time
+
+#from GUI.MainUi import MainUi
 
 plt.ion # Interactive mode in plots
 
@@ -55,6 +64,14 @@ zvout = stateout[:,1]
 massout = stateout[:,2]
 
 
+"""
+# testing .ui
+app = QtWidgets.QApplication(sys.argv)
+ui = MainUi(rocket_Ambition, n_motor, time)
+ui.show()
+
+sys.exit(app.exec())
+"""
 
 # Results 
 print('\n\n\nResults:')
