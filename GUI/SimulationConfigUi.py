@@ -8,11 +8,13 @@ from PySide6.QtCore import Slot
 if __name__ == "__main__":
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from Simulation_Config import Time
+else:
+    from Simulation_Config import Time
 
 
 
 class SimulationUi(QtWidgets.QWidget):
-    def __init__(self, time:Time, parent = None):
+    def __init__(self, time: Time, parent = None):
         super().__init__(parent)
         self.time = time
         self.parent = parent

@@ -17,8 +17,8 @@ from SimulationConfigUi import SimulationUi
 class MainUi(QtWidgets.QMainWindow):
     def __init__(self, rocket: RocketConfig, motor: Motor, time: Time, parent = None):
         super().__init__(parent)
-        self. rocket = rocket
-        self. motor = motor
+        self.rocket = rocket
+        self.motor = motor
         self.time = time
         
         centralWidget = QtWidgets.QWidget()
@@ -34,9 +34,9 @@ class MainUi(QtWidgets.QMainWindow):
                
 
         
-        rocketConfigWidget = RocketConfigUi(rocket, self)
-        motorConfigWidget = MotorConfigUi(motor, self)
-        simulationConfigWidget = SimulationUi(self)
+        rocketConfigWidget = RocketConfigUi(self.rocket, self)
+        motorConfigWidget = MotorConfigUi(self.motor, self)
+        simulationConfigWidget = SimulationUi(self.time, self)
         
         configLayout = QtWidgets.QVBoxLayout()
         configLayout.addWidget(self.logoLabel)
