@@ -24,11 +24,11 @@ class MainUi(QtWidgets.QMainWindow):
         centralWidget = QtWidgets.QWidget()
         configWidget = QtWidgets.QWidget()
         configWidget.setFixedWidth(225)
-        configWidget.layoutDirection().LeftToRight
+        #configWidget.layoutDirection().LeftToRight
         
         self.logoLabel = QtWidgets.QLabel()
-        logoPath = QPixmap("RocketModel/GUI/HornetLogo.png").scaledToWidth(configWidget.width(), mode = Qt.SmoothTransformation)
-        logoPath = QPixmap("RocketModel/GUI/HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
+        #logoPath = QPixmap("GUI/HornetLogo.png").scaledToWidth(configWidget.width(), mode = Qt.SmoothTransformation)
+        logoPath = QPixmap("GUI/HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
         self.logoLabel.setPixmap(logoPath)
         #self.logoLabel.setPixmap(logoPath.scaled(self.logoLabel.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))        
                
@@ -37,7 +37,6 @@ class MainUi(QtWidgets.QMainWindow):
         rocketConfigWidget = RocketConfigUi(rocket, self)
         motorConfigWidget = MotorConfigUi(motor, self)
         simulationConfigWidget = SimulationUi(self)
-        
         
         configLayout = QtWidgets.QVBoxLayout()
         configLayout.addWidget(self.logoLabel)
