@@ -83,6 +83,12 @@ def simulation(inital_conditions: np.array, time_array: np.array, rocket: Rocket
 
     return stateout
 
+class SimulationData:
+    def __init__(self, statevector):
+        self.altitude = statevector[:,0]
+        self.velocity = statevector[:,1]
+        self.mass = statevector[:,2]
+        
 
 class Time:
     def __init__(self, start_time: int, end_time: int, step: float):
