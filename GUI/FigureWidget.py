@@ -36,7 +36,7 @@ class FigureWidget(QtWidgets.QWidget):
     def _update_canvas(self):
         self.axes.cla()
         print("the button is pressed")
-        self.axes.plot(self.parent.data.t, self.parent.data.x)
+        self.axes.plot(self.parent.data.time, self.parent.data.altitude)
         self.figureCanvas.draw()
 
 

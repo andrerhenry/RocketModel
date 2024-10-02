@@ -60,8 +60,8 @@ class MainUi(QtWidgets.QMainWindow):
     @Slot()
     def runSimulation(self):
         inital_conditions = [0, 0, rocket.rocket_mass_0]
-        data = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
-        self.simulation_data = SimulationData(data)
+        statevector = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
+        self.data.update_data(statevector, self.time.time_array())
 
             
         
