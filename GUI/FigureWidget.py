@@ -2,6 +2,9 @@ import sys
 import time
 
 import numpy as np
+from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtCore import Slot
+
 
 from matplotlib.backends.backend_qtagg import FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
@@ -9,30 +12,32 @@ from matplotlib.backends.qt_compat import QtWidgets
 from matplotlib.figure import Figure
 
 
-class ApplicationWindow(QtWidgets.QMainWindow):
-    def __init__(self):
+class FigureWidget(QtWidgets.QWidget):
+    def __init__(self, parent = None):
         super().__init__()
-        self._main = QtWidgets.QWidget()
-        self.setCentralWidget(self._main)
-        layout = QtWidgets.QVBoxLayout(self._main)
+        self.parent = parent
 
-        dynamic_canvas = FigureCanvas(Figure(figsize=(5, 3)))
-        layout.addWidget(NavigationToolbar(dynamic_canvas, self))
-        layout.addWidget(dynamic_canvas)
-
-        self._dynamic_ax = dynamic_canvas.figure.subplots()
-        t = np.linspace(0, 10, 101)
+        self.figureCanvas = FigureCanvas(Figure(figsize=(5, 3)))
+        self.pushButton = QtWidgets.QPushButton()
+        self.pushButton.clicked.connect(self._update_canvas)
+        
+        self.axes = self.figureCanvas.figure.subplots()
+        
         # Set up a Line2D.
-        self._line, = self._dynamic_ax.plot(t, np.sin(t + time.time()))
-        self._timer = dynamic_canvas.new_timer(50)
-        self._timer.add_callback(self._update_canvas)
-        self._timer.start()
-
+        #self._line, = self.axes.plot(t, np.sin(t + time.time()))
+        self.axes.plot(self.parent.data.t, self.parent.data.x)
+        
+        layout = QtWidgets.QVBoxLayout(self)
+        layout.addWidget(self.pushButton)
+        layout.addWidget(NavigationToolbar(self.figureCanvas, self))
+        layout.addWidget(self.figureCanvas)
+    
+    @Slot()
     def _update_canvas(self):
-        t = np.linspace(0, 10, 101)
-        # Shift the sinusoid as a function of time.
-        self._line.set_data(t, np.sin(t + time.time()))
-        self._line.figure.canvas.draw()
+        self.axes.cla()
+        print("the button is pressed")
+        self.axes.plot(self.parent.data.t, self.parent.data.x)
+        self.figureCanvas.draw()
 
 
 if __name__ == "__main__":
@@ -42,7 +47,7 @@ if __name__ == "__main__":
     if not qapp:
         qapp = QtWidgets.QApplication(sys.argv)
 
-    app = ApplicationWindow()
+    app = FigureWidget()
     app.show()
     app.activateWindow()
     app.raise_()

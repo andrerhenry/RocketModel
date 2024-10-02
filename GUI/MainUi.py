@@ -7,7 +7,7 @@ from PySide6.QtCore import Slot, Qt
 # Add the parent directory to the system path for user class import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Rocket_Config import RocketConfig, Motor
-from Simulation_Config import simulation, Time
+from Simulation_Config import simulation, Time, SimulationData
 from RocketConfigUi import RocketConfigUi
 from MotorConfigUi import MotorConfigUi
 from SimulationConfigUi import SimulationUi
@@ -21,6 +21,7 @@ class MainUi(QtWidgets.QMainWindow):
         self.rocket = rocket
         self.motor = motor
         self.time = time
+        self.data = SimulationData()
         
         centralWidget = QtWidgets.QWidget()
         configWidget = QtWidgets.QWidget()
@@ -38,7 +39,7 @@ class MainUi(QtWidgets.QMainWindow):
         rocketConfigWidget = RocketConfigUi(self.rocket, self)
         motorConfigWidget = MotorConfigUi(self.motor, self)
         simulationConfigWidget = SimulationUi(self.time, self)
-        figureWidget = FigureWidget.ApplicationWindow()
+        figureWidget = FigureWidget.FigureWidget(self)
         
         configLayout = QtWidgets.QVBoxLayout()
         configLayout.addWidget(self.logoLabel)
@@ -59,8 +60,9 @@ class MainUi(QtWidgets.QMainWindow):
     @Slot()
     def runSimulation(self):
         inital_conditions = [0, 0, rocket.rocket_mass_0]
-        simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
-            
+        data = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
+        self.simulation_data = SimulationData(data)
+
             
         
         self.addAction
