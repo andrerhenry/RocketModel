@@ -26,20 +26,16 @@ class MainUi(QtWidgets.QMainWindow):
         centralWidget = QtWidgets.QWidget()
         configWidget = QtWidgets.QWidget()
         configWidget.setFixedWidth(225)
-        #configWidget.layoutDirection().LeftToRight
+        simulationWidget = QtWidgets.QWidget()
+                
         
         self.logoLabel = QtWidgets.QLabel()
-        #logoPath = QPixmap("GUI/HornetLogo.png").scaledToWidth(configWidget.width(), mode = Qt.SmoothTransformation)
         logoPath = QPixmap("GUI/HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
         self.logoLabel.setPixmap(logoPath)
         #self.logoLabel.setPixmap(logoPath.scaled(self.logoLabel.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))        
-               
-
         
         rocketConfigWidget = RocketConfigUi(self.rocket, self)
         motorConfigWidget = MotorConfigUi(self.motor, self)
-        simulationConfigWidget = SimulationUi(self.time, self)
-        figureWidget = FigureWidget.FigureWidget(self)
         
         configLayout = QtWidgets.QVBoxLayout()
         configLayout.addWidget(self.logoLabel)
@@ -48,22 +44,23 @@ class MainUi(QtWidgets.QMainWindow):
         configWidget.setLayout(configLayout)
         
         
+        simulationConfigWidget = SimulationUi(self.time, self)
+        figureWidget = FigureWidget.FigureWidget(self)
         
+        simulationLayout = QtWidgets.QVBoxLayout()
+        simulationLayout.addWidget(simulationConfigWidget)
+        simulationLayout.addWidget(figureWidget)
+        simulationWidget.setLayout(simulationLayout)
         
         centralLayout = QtWidgets.QHBoxLayout()
         centralLayout.addWidget(configWidget, alignment = Qt.AlignmentFlag.AlignLeft)
-        centralLayout.addWidget(simulationConfigWidget, alignment=Qt.AlignmentFlag.AlignTop)
-        centralLayout.addWidget(figureWidget)
+        centralLayout.addWidget(simulationWidget, alignment=Qt.AlignmentFlag.AlignTop)
+        #centralLayout.addWidget(figureWidget)
         centralWidget.setLayout(centralLayout)
         self.setCentralWidget(centralWidget)
         
-    @Slot()
-    def runSimulation(self):
-        inital_conditions = [0, 0, rocket.rocket_mass_0]
-        statevector = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
-        self.data.update_data(statevector, self.time.time_array())
-
-            
+        
+        
         
         self.addAction
         # Exit QAction
@@ -73,7 +70,19 @@ class MainUi(QtWidgets.QMainWindow):
 
 
         #geometry = self.screen().availableGeometry()
-        #self.setFixedSize(geometry.width() * 0.8, geometry.height() * 0.7)
+        #self.setFixedSize(geometry.width() * 0.8, geometry.height() * 0.7)        
+        
+        
+        
+    @Slot()
+    def runSimulation(self):
+        inital_conditions = [0, 0, rocket.rocket_mass_0]
+        statevector = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
+        self.data.update_data(statevector, self.time.time_array())
+
+            
+        
+
         
 
 
