@@ -45,17 +45,16 @@ class MainUi(QtWidgets.QMainWindow):
         
         
         simulationConfigWidget = SimulationUi(self.time, self)
-        figureWidget = FigureWidget.FigureWidget(self)
+        self.figureWidget = FigureWidget.FigureWidget(self)
         
         simulationLayout = QtWidgets.QVBoxLayout()
         simulationLayout.addWidget(simulationConfigWidget)
-        simulationLayout.addWidget(figureWidget)
+        simulationLayout.addWidget(self.figureWidget)
         simulationWidget.setLayout(simulationLayout)
         
         centralLayout = QtWidgets.QHBoxLayout()
         centralLayout.addWidget(configWidget, alignment = Qt.AlignmentFlag.AlignLeft)
         centralLayout.addWidget(simulationWidget, alignment=Qt.AlignmentFlag.AlignTop)
-        #centralLayout.addWidget(figureWidget)
         centralWidget.setLayout(centralLayout)
         self.setCentralWidget(centralWidget)
         
@@ -79,13 +78,11 @@ class MainUi(QtWidgets.QMainWindow):
         inital_conditions = [0, 0, rocket.rocket_mass_0]
         statevector = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
         self.data.update_data(statevector, self.time.time_array())
+        self.figureWidget.update_canvas()
+        
 
             
         
-
-        
-
-
 
 
 
