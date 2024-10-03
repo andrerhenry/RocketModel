@@ -18,18 +18,16 @@ class FigureWidget(QtWidgets.QWidget):
         super().__init__()
         self.parent = parent
         
-        self.figureCanvas = FigureCanvas(Figure(figsize=(5, 3)))
-        self.figureCanvas.setMinimumSize(600, 400)
         self.pushButton = QtWidgets.QPushButton()
         self.pushButton.setText("update graph")
         self.pushButton.clicked.connect(self.update_canvas)
         
-        self.axes = self.figureCanvas.figure.subplots()
-                
+        
+        self.figureCanvas = FigureCanvas(Figure(figsize=(5, 3)))
+        self.figureCanvas.setMinimumSize(600, 400)
+        self.axes = self.figureCanvas.figure.subplots()                
         self.update_canvas()
-        # Set up a Line2D.
-        #self._line, = self.axes.plot(t, np.sin(t + time.time()))
-        #self.axes.plot(self.parent.data.t, self.parent.data.x)
+        
         
         layout = QtWidgets.QVBoxLayout(self)
         layout.addWidget(self.pushButton)
@@ -43,8 +41,8 @@ class FigureWidget(QtWidgets.QWidget):
         self.axes.plot(self.parent.data.time, self.parent.data.altitude)
         self.axes.grid()
         self.axes.set_title("Altitude")
-        self.axes.set_xlabel("Time (s)")
         self.axes.set_ylabel("Altitude (m)")
+        self.axes.set_xlabel("Time (s)")
         self.figureCanvas.draw()
 
 
