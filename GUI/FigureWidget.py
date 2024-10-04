@@ -21,18 +21,17 @@ class FigureWidget(QtWidgets.QWidget):
         
         self.pushButton = QtWidgets.QPushButton()
         self.pushButton.setText("update graph")
-        self.pushButton.clicked.connect(self.update_canvas)
+        self.pushButton.clicked.connect(self.updateCanvas)
         
         self.dataComboBox = QtWidgets.QComboBox()
         self.dataComboBox.addItems(self.figure_elements.keys())
-        #self.dataComboBox.addItems(["Altitude", "Velocity", "Mass"])
         self.dataComboBox.currentTextChanged.connect(self.comboBoxChanged)
         
         
         self.figureCanvas = FigureCanvas(Figure(figsize=(5, 3)))
         self.figureCanvas.setMinimumSize(600, 400)
         self.axes = self.figureCanvas.figure.subplots()                
-        self.update_canvas()
+        self.updateCanvas()
         
         
         layout = QtWidgets.QVBoxLayout(self)
@@ -42,18 +41,21 @@ class FigureWidget(QtWidgets.QWidget):
         layout.addWidget(self.figureCanvas)
     
     @Slot()
-    def update_canvas(self):
-        self.axes.cla()
-        print("the button is pressed")
+    def updateCanvas(self, selected_data: str = None):
+        self.axes.cla() # clear axes for fresh plot
+        selected_data = self.dataComboBox.currentText()
+        print(selected_data)
+        
         self.axes.plot(self.parent.data.time, self.parent.data.altitude)
         self.axes.grid()
-        self.axes.set_title("Altitude")
-        self.axes.set_ylabel("Altitude (m)")
+        self.axes.set_title(selected_data)
+        self.axes.set_ylabel(self.figure_elements[selected_data]["label"])
         self.axes.set_xlabel("Time (s)")
         self.figureCanvas.draw()
     
     @Slot()
     def comboBoxChanged(self):
+        self.updateCanvas()
         print(self.dataComboBox.currentText())
 
         
@@ -69,10 +71,10 @@ def figure_dict()-> dict:
         dict: figure elements 
     """    
     figure_elements = {
-    "Alititude" : {"label": "Altitude (m)", "units": "(m)"},
-    "Velocity" : {"label": "Velocity (m/s)", "units": "(m/s)"},
-    "Acceleration" : {"label": "Acceleration (m/s^2)", "units": "(m/s^2)"},
-    "Mass" : {"label": "Mass (kg)", "units": "(kg)"}
+    "Altitude": {"label": "Altitude (m)", "units": "(m)"},
+    "Velocity": {"label": "Velocity (m/s)", "units": "(m/s)"},
+    "Acceleration": {"label": "Acceleration (m/s^2)", "units": "(m/s^2)"},
+    "Mass": {"label": "Mass (kg)", "units": "(kg)"}
     }
     
     return figure_elements

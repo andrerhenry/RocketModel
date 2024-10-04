@@ -29,8 +29,9 @@ class MainUi(QtWidgets.QMainWindow):
         simulationWidget = QtWidgets.QWidget()
                 
         
-        self.logoLabel = QtWidgets.QLabel()
+        
         logoPath = QPixmap("GUI/HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
+        self.logoLabel = QtWidgets.QLabel()
         self.logoLabel.setPixmap(logoPath)
         #self.logoLabel.setPixmap(logoPath.scaled(self.logoLabel.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))        
         
@@ -78,7 +79,7 @@ class MainUi(QtWidgets.QMainWindow):
         inital_conditions = [0, 0, rocket.rocket_mass_0]
         statevector = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
         self.data.update_data(statevector, self.time.time_array())
-        self.figureWidget.update_canvas()
+        self.figureWidget.updateCanvas()
         
 
             
