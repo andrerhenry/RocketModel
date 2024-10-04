@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.integrate as sci
-import matplotlib.pyplot as plt
+
 
 from Rocket_Config import RocketConfig, Motor
 from Aero_Config import Aero
@@ -60,27 +60,18 @@ def simulation(inital_conditions: np.array, time_array: np.array, rocket: Rocket
     """
     stateout = sci.odeint(Derivative, inital_conditions, time_array, args=(rocket, motor,))
     
-    zout = stateout[:,0]
-    zvout = stateout[:,1]
-    massout = stateout[:,2]
+    altitude = stateout[:,0]
+    velocity = stateout[:,1]
+    mass = stateout[:,2]
     
     #troubshooting outputs
     # Results 
     print('\n\n\nResults:')
-    print(f'Apogee:  {np.max(zout):.2f}')
-    print(f'Maxium Velocity:  {np.max(zvout):.2f}')
+    print(f'Apogee:  {np.max(altitude):.2f}')
+    print(f'Maxium Velocity:  {np.max(velocity):.2f}')
     print(f'ISP:  {np.max(motor.ISP):.2f}')
     print('\n')
     
-    #plot
-    plt.figure()
-    plt.plot(time_array,zout)
-    plt.title('Altitude')
-    plt.xlabel('Time (s)')
-    plt.ylabel('Altitude (m)')
-    plt.grid()
-    plt.show()
-
     return stateout
 
 class SimulationData:
