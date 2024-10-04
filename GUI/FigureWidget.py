@@ -17,10 +17,16 @@ class FigureWidget(QtWidgets.QWidget):
     def __init__(self, parent = None):
         super().__init__()
         self.parent = parent
+        self.figure_elements = figure_dict()
         
         self.pushButton = QtWidgets.QPushButton()
         self.pushButton.setText("update graph")
         self.pushButton.clicked.connect(self.update_canvas)
+        
+        self.dataComboBox = QtWidgets.QComboBox()
+        #self.dataComboBox.addItems(self.figure_elements.keys())
+        self.dataComboBox.addItems(["Altitude", "Velocity", "Mass"])
+        self.dataComboBox.currentTextChanged.connect(self.comboBoxChanged)
         
         
         self.figureCanvas = FigureCanvas(Figure(figsize=(5, 3)))
@@ -44,17 +50,29 @@ class FigureWidget(QtWidgets.QWidget):
         self.axes.set_ylabel("Altitude (m)")
         self.axes.set_xlabel("Time (s)")
         self.figureCanvas.draw()
+    
+    @Slot()
+    def comboBoxChanged(self):
+        print(self.dataComboBox.currentText())
 
+        
+        
+def figure_dict()-> dict:
+    """Generates a dictionary conatianing the associated ploting elements
+    for the attribute that is plotted. 
+    
+    The dict can be modified to contain other information to be passed 
+    describing the atribute.
 
-if __name__ == "__main__":
-    # Check whether there is already a running QApplication (e.g., if running
-    # from an IDE).
-    qapp = QtWidgets.QApplication.instance()
-    if not qapp:
-        qapp = QtWidgets.QApplication(sys.argv)
+    Returns:
+        dict: figure elements 
+    """    
+    figure_elements = {
+    "Alititude" : {"label": "Altitude (m)", "units": "(m)"},
+    "Velocity" : {"label": "Velocity (m/s)", "units": "(m/s)"},
+    "Acceleration" : {"label": "Acceleration (m/s^2)", "units": "(m/s^2)"},
+    "Mass" : {"label": "Mass (kg)", "units": "(kg)"}
+    }
+    
+    return figure_elements
 
-    app = FigureWidget()
-    app.show()
-    app.activateWindow()
-    app.raise_()
-    qapp.exec()

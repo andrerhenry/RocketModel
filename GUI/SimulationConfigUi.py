@@ -57,11 +57,6 @@ class SimulationUi(QtWidgets.QWidget):
         self.stepTimeEdit.setText(str(time.step))
         self.stepTimeEdit.editingFinished.connect(self.setStep)
         
-        self.dataComboBox = QtWidgets.QComboBox()
-        self.dataComboBox.addItems(["Altitude", "Velocity", "Mass"])
-        self.dataComboBox.currentTextChanged.connect(self.comboBoxChanged)
-
-        
         
         inputBox = QtWidgets.QHBoxLayout(self)
         inputBox.addWidget(self.startTimeLabel)
@@ -78,7 +73,6 @@ class SimulationUi(QtWidgets.QWidget):
         simulationLayout = QtWidgets.QVBoxLayout(self)
         simulationLayout.addWidget(self.configLabel)
         simulationLayout.addWidget(inputWidget)
-        simulationLayout.addWidget(self.dataComboBox)
         
         
     @Slot()
@@ -101,9 +95,6 @@ class SimulationUi(QtWidgets.QWidget):
         print("run simulation")
         self.parent.runSimulation()
     
-    @Slot()
-    def comboBoxChanged(self):
-        print(self.dataComboBox.currentText())
 
 
 
