@@ -4,7 +4,6 @@ from PySide6.QtCore import Slot
 
 from matplotlib.backends.backend_qtagg import FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
-from matplotlib.backends.qt_compat import QtWidgets
 from matplotlib.figure import Figure
 
 
@@ -16,13 +15,20 @@ class FigureWidget(QtWidgets.QWidget):
         self.data = parent.data
         self.data_dict = create_data_dict()
         
-        self.pushButton = QtWidgets.QPushButton()
-        self.pushButton.setText("update graph")
-        self.pushButton.clicked.connect(self.updateCanvas)
-        
+        self.dataComboLabel = QtWidgets.QLabel()
+        self.dataComboLabel.setText("Plot Data:")
+                
         self.dataComboBox = QtWidgets.QComboBox()
         self.dataComboBox.addItems(self.data_dict.keys())
         self.dataComboBox.currentTextChanged.connect(self.updateCanvas)
+        
+        header = QtWidgets.QWidget()
+        headerLayout = QtWidgets.QHBoxLayout()
+        headerLayout.addWidget(self.dataComboLabel)
+        headerLayout.addWidget(self.dataComboBox)
+        header.setLayout(headerLayout)
+        
+        
         
         self.figureCanvas = FigureCanvas(Figure(figsize=(5, 3)))
         self.figureCanvas.setMinimumSize(600, 400)
@@ -31,8 +37,7 @@ class FigureWidget(QtWidgets.QWidget):
         
         
         layout = QtWidgets.QVBoxLayout(self)
-        layout.addWidget(self.pushButton)
-        layout.addWidget(self.dataComboBox)
+        layout.addWidget(header)
         layout.addWidget(NavigationToolbar(self.figureCanvas, self))
         layout.addWidget(self.figureCanvas)
     
