@@ -12,7 +12,7 @@ class RocketConfig:
         self.rocket_mass_0 = rocket_mass_0
         self.drag_coefficient = drag_coefficient
         self._diameter = diameter
-        self._cross_sect_area = self.cross_sect_area_calc(diameter)
+        self._cross_sect_area = self._cross_sect_area_calc(diameter)
         pass
     
     @property
@@ -22,14 +22,14 @@ class RocketConfig:
     @diameter.setter
     def diameter(self, new_diameter):
         # Set Cross sectional aera on change of diameter
-        self._cross_sect_area = self.cross_sect_area_calc(new_diameter)
+        self._cross_sect_area = self._cross_sect_area_calc(new_diameter)
         self._diameter = new_diameter
 
     @property
     def cross_sect_area(self):
         return self._cross_sect_area
     
-    def cross_sect_area_calc(self, diameter: float) -> float:
+    def _cross_sect_area_calc(self, diameter: float) -> float:
         """Calcualte the cross sectional area
 
         Args:
@@ -123,10 +123,12 @@ if __name__ == "__main__":
     burn_time = 4.4 #s
     Nmotor = Motor(FuelMass, ThrustAvg, TotalImpulse, burn_time)
     
-    print(Nmotor.ISP)
+    
+    print(getattr(rocket, "rocket_mass_0"))
+    """
     Nmotor.mass_fuel = 8
     print(Nmotor.mass_fuel, Nmotor.ISP)
     Nmotor.total_impulse = 15000.0
     print(Nmotor.total_impulse, Nmotor.ISP)
-   
+   """
     #print(Nmotor.motor_output(1), type(Nmotor.motor_output(1)) )
