@@ -24,8 +24,8 @@ class FigureWidget(QtWidgets.QWidget):
         self.pushButton.clicked.connect(self.update_canvas)
         
         self.dataComboBox = QtWidgets.QComboBox()
-        #self.dataComboBox.addItems(self.figure_elements.keys())
-        self.dataComboBox.addItems(["Altitude", "Velocity", "Mass"])
+        self.dataComboBox.addItems(self.figure_elements.keys())
+        #self.dataComboBox.addItems(["Altitude", "Velocity", "Mass"])
         self.dataComboBox.currentTextChanged.connect(self.comboBoxChanged)
         
         
@@ -37,6 +37,7 @@ class FigureWidget(QtWidgets.QWidget):
         
         layout = QtWidgets.QVBoxLayout(self)
         layout.addWidget(self.pushButton)
+        layout.addWidget(self.dataComboBox)
         layout.addWidget(NavigationToolbar(self.figureCanvas, self))
         layout.addWidget(self.figureCanvas)
     
