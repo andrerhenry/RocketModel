@@ -1,11 +1,9 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Slot
 
-
 from matplotlib.backends.backend_qtagg import FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
-
 
 
 class FigureWidget(QtWidgets.QWidget):
@@ -28,13 +26,10 @@ class FigureWidget(QtWidgets.QWidget):
         headerLayout.addWidget(self.dataComboBox)
         header.setLayout(headerLayout)
         
-        
-        
         self.figureCanvas = FigureCanvas(Figure(figsize=(5, 3)))
         self.figureCanvas.setMinimumSize(600, 400)
         self.axes = self.figureCanvas.figure.subplots()                
         self.updateCanvas()
-        
         
         layout = QtWidgets.QVBoxLayout(self)
         layout.addWidget(header)
@@ -54,7 +49,6 @@ class FigureWidget(QtWidgets.QWidget):
         self.axes.set_xlabel("Time (s)")
         self.figureCanvas.draw()
     
-
         
 def create_data_dict()-> dict:
     """Generates a dictionary conatianing the associated ploting elements
