@@ -1,4 +1,4 @@
-from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6 import QtWidgets
 from PySide6.QtCore import Slot
 
 from matplotlib.backends.backend_qtagg import FigureCanvas

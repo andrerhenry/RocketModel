@@ -1,16 +1,9 @@
 
 import sys
-import os
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Slot
 
-# Add the parent directory to the system path for user class import
-if __name__ == "__main__":
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from Config.Simulation_Config import Time
-else:
-    from Config.Simulation_Config import Time
-
+from Config.Simulation_Config import Time
 
 
 class SimulationUi(QtWidgets.QWidget):
@@ -94,10 +87,6 @@ class SimulationUi(QtWidgets.QWidget):
     def runButtonClicked(self):
         print("run simulation")
         self.parent.runSimulation()
-    
-
-
-
 
 
 if __name__ == "__main__":

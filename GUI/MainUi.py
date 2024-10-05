@@ -27,8 +27,6 @@ class MainUi(QtWidgets.QMainWindow):
         configWidget = QtWidgets.QWidget()
         configWidget.setFixedWidth(225)
         simulationWidget = QtWidgets.QWidget()
-                
-        
         
         logoPath = QPixmap("GUI/Images/HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
         self.logoLabel = QtWidgets.QLabel()
@@ -60,18 +58,11 @@ class MainUi(QtWidgets.QMainWindow):
         self.setCentralWidget(centralWidget)
         
         
-        
-        
         self.addAction
         # Exit QAction
         exit_action = QAction("Exit", self)
         exit_action.setShortcut(QKeySequence.Quit)
         exit_action.triggered.connect(self.close)
-
-
-        #geometry = self.screen().availableGeometry()
-        #self.setFixedSize(geometry.width() * 0.8, geometry.height() * 0.7)        
-        
         
         
     @Slot()
@@ -80,11 +71,6 @@ class MainUi(QtWidgets.QMainWindow):
         statevector = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
         self.data.update_data(statevector, self.time.time_array())
         self.figureWidget.updateCanvas()
-        
-
-            
-        
-
 
 
 if __name__ == "__main__":
