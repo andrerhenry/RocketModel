@@ -6,8 +6,8 @@ from PySide6.QtCore import Slot, Qt
 
 # Add the parent directory to the system path for user class import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Rocket_Config import RocketConfig, Motor
-from Simulation_Config import simulation, Time, SimulationData
+from Config.Rocket_Config import RocketConfig, Motor
+from Config.Simulation_Config import simulation, Time, SimulationData
 from RocketConfigUi import RocketConfigUi
 from MotorConfigUi import MotorConfigUi
 from SimulationConfigUi import SimulationUi

@@ -21,9 +21,9 @@ from PySide6 import QtWidgets
 from PySide6.QtGui import QAction, QKeySequence, QPixmap
 from PySide6.QtCore import Slot, Qt
 
-from Rocket_Config import RocketConfig, Motor
-from Aero_Config import Aero
-from Simulation_Config import simulation, Time
+from Config.Rocket_Config import RocketConfig, Motor
+from Config.Aero_Config import Aero
+from Config.Simulation_Config import simulation, Time
 
 #from GUI.MainUi import MainUi
 

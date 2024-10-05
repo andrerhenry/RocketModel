@@ -1,6 +1,6 @@
 from numpy import exp, sign
 
-from Rocket_Config import RocketConfig
+from Config.Rocket_Config import RocketConfig
 
 class Aero:
     def  __init__(self, rocket: RocketConfig) -> None:

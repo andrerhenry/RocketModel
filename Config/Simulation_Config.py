@@ -1,12 +1,12 @@
 import numpy as np
 import scipy.integrate as sci
 
-from Rocket_Config import RocketConfig, Motor
-from Aero_Config import Aero
+from Config.Rocket_Config import RocketConfig, Motor
+from Config.Aero_Config import Aero
 
 
 # Main differential equation 
-def Derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> np.ndarray:
+def derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> np.ndarray:
     """State space equation to be integrated numericaly. 
 
     Args:
@@ -57,7 +57,7 @@ def simulation(inital_conditions: np.array, time_array: np.array, rocket: Rocket
     Returns:
         np.ndarray: State vector of simulation data [altitude - m, velocity - m/s, mass -kg]
     """
-    stateout = sci.odeint(Derivative, inital_conditions, time_array, args=(rocket, motor,))
+    stateout = sci.odeint(derivative, inital_conditions, time_array, args=(rocket, motor,))
     
     altitude = stateout[:,0]
     velocity = stateout[:,1]

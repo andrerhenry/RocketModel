@@ -7,9 +7,9 @@ from PySide6.QtCore import Slot
 # Add the parent directory to the system path for user class import
 if __name__ == "__main__":
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from Simulation_Config import Time
+    from Config.Simulation_Config import Time
 else:
-    from Simulation_Config import Time
+    from Config.Simulation_Config import Time
 
 
 
