@@ -1,3 +1,3 @@
-from Aero_Config import Aero
-from Rocket_Config import RocketConfig, Motor
-from Simulation_Config import derivative, simulation, Time
+from Config.Aero_Config import Aero
+from Config.Rocket_Config import RocketConfig, Motor
+import Config.Simulation_Config

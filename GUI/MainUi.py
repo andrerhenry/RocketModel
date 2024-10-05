@@ -5,13 +5,13 @@ from PySide6.QtGui import QAction, QKeySequence, QPixmap
 from PySide6.QtCore import Slot, Qt
 
 # Add the parent directory to the system path for user class import
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Config.Rocket_Config import RocketConfig, Motor
 from Config.Simulation_Config import simulation, Time, SimulationData
-from RocketConfigUi import RocketConfigUi
-from MotorConfigUi import MotorConfigUi
-from SimulationConfigUi import SimulationUi
-import FigureWidget
+
+from GUI.RocketConfigUi import RocketConfigUi
+from GUI.MotorConfigUi import MotorConfigUi
+from GUI.SimulationConfigUi import SimulationUi
+from GUI.FigureWidget import FigureWidget
 #from FlightCalculator import *
 
 
@@ -46,7 +46,7 @@ class MainUi(QtWidgets.QMainWindow):
         
         
         simulationConfigWidget = SimulationUi(self.time, self)
-        self.figureWidget = FigureWidget.FigureWidget(self)
+        self.figureWidget = FigureWidget(self)
         
         simulationLayout = QtWidgets.QVBoxLayout()
         simulationLayout.addWidget(simulationConfigWidget)
@@ -76,7 +76,7 @@ class MainUi(QtWidgets.QMainWindow):
         
     @Slot()
     def runSimulation(self):
-        inital_conditions = [0, 0, rocket.rocket_mass_0]
+        inital_conditions = [0, 0, self.rocket.rocket_mass_0]
         statevector = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
         self.data.update_data(statevector, self.time.time_array())
         self.figureWidget.updateCanvas()

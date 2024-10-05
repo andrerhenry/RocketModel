@@ -21,10 +21,14 @@ from PySide6 import QtWidgets
 from PySide6.QtGui import QAction, QKeySequence, QPixmap
 from PySide6.QtCore import Slot, Qt
 
-from Config.Rocket_Config import RocketConfig, Motor
-from Config.Aero_Config import Aero
-from Config.Simulation_Config import simulation, Time
+from Config import RocketConfig, Motor
+from Config.Simulation_Config import Time
 
+"""from Config.Rocket_Config import RocketConfig, Motor
+from Config.Aero_Config import Aero
+from Config.Simulation_Config import simulation, Time"""
+
+from GUI.MainUi import MainUi
 #from GUI.MainUi import MainUi
 
 plt.ion # Interactive mode in plots
@@ -57,21 +61,22 @@ stateinitial = np.array([z0, zv0, rocket_Ambition.rocket_mass_0])
 time = Time(0, 63, 0.001)
 # Integratoin of model
 
+"""
 stateout = simulation(stateinitial, time.time_array(), rocket_Ambition, n_motor)
 
 zout = stateout[:,0]
 zvout = stateout[:,1]
 massout = stateout[:,2]
-
-
 """
+
+
 # testing .ui
 app = QtWidgets.QApplication(sys.argv)
 ui = MainUi(rocket_Ambition, n_motor, time)
 ui.show()
 
 sys.exit(app.exec())
-"""
+
 
 # Results 
 print('\n\n\nResults:')
