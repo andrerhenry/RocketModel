@@ -30,7 +30,7 @@ class MainUi(QtWidgets.QMainWindow):
                 
         
         
-        logoPath = QPixmap("GUI/HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
+        logoPath = QPixmap("GUI/Images/HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
         self.logoLabel = QtWidgets.QLabel()
         self.logoLabel.setPixmap(logoPath)
         #self.logoLabel.setPixmap(logoPath.scaled(self.logoLabel.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))        
