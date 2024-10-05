@@ -5,6 +5,7 @@ from Config.Rocket_Config import RocketConfig, Motor
 from Config.Aero_Config import Aero
 
 
+
 # Main differential equation 
 def derivative(state: np.array, t: int, rocket: RocketConfig, motor: Motor) -> np.ndarray:
     """State space equation to be integrated numericaly. 
@@ -94,7 +95,6 @@ class SimulationData:
         
         if time is not None:
             self.time = time
-        
         
         
 class Time:

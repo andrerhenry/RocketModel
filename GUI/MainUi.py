@@ -1,10 +1,8 @@
 import sys
-import os
 from PySide6 import QtWidgets
 from PySide6.QtGui import QAction, QKeySequence, QPixmap
 from PySide6.QtCore import Slot, Qt
 
-# Add the parent directory to the system path for user class import
 from Config.Rocket_Config import RocketConfig, Motor
 from Config.Simulation_Config import simulation, Time, SimulationData
 
@@ -12,7 +10,7 @@ from GUI.RocketConfigUi import RocketConfigUi
 from GUI.MotorConfigUi import MotorConfigUi
 from GUI.SimulationConfigUi import SimulationUi
 from GUI.FigureWidget import FigureWidget
-#from FlightCalculator import *
+
 
 
 class MainUi(QtWidgets.QMainWindow):

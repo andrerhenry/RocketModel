@@ -19,6 +19,7 @@ from Config.Simulation_Config import Time
 from GUI.MainUi import MainUi
 
 
+
 # Defulat perameters to use in GUI
 # Rocket: Ambition
 rocket_mass_0 = 32098/1000 # kilograms

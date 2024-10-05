@@ -1,5 +1,7 @@
 from numpy import abs, pi
 
+
+
 class RocketConfig:    
     def __init__(self, rocket_mass_0: float, drag_coefficient: float, diameter: float) -> None:
         """Initalize and storage of rocket charitaristic variables
