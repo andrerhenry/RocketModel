@@ -66,12 +66,7 @@ def simulation(inital_conditions: np.array, time_array: np.array, rocket: Rocket
     
     return stateout
 
-class SimulationData:
-        #testing
-    import time
-    t = np.linspace(0, 10, 101)
-    x = np.sin(t + time.time())
-    
+class SimulationData:  
     def __init__(self, parent_gui = None):
         self.altitude = np.empty(1)
         self.velocity = np.empty(1)
