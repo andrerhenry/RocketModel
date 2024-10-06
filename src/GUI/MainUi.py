@@ -53,10 +53,14 @@ class MainUi(QtWidgets.QMainWindow):
         rocketConfigWidget = RocketConfigUi(self.rocket, self)
         motorConfigWidget = MotorConfigUi(self.motor, self)
         
+        self.textbox = QtWidgets.QTextEdit()
+        
+        
         configLayout = QtWidgets.QVBoxLayout()
         configLayout.addWidget(rocketConfigWidget)
         configLayout.addWidget(motorConfigWidget)
-        configLayout.addStretch()
+        configLayout.addWidget(self.textbox)
+        #configLayout.addStretch()
         configWidget.setLayout(configLayout)
         
         
@@ -92,8 +96,12 @@ class MainUi(QtWidgets.QMainWindow):
     def runSimulation(self):
         inital_conditions = [0, 0, self.rocket.rocket_mass_0]
         statevector = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
-        self.data.update_data(statevector, self.time.time_array())
+        self.data.update_data(statevector, self.time.time_array(), self)
         self.figureWidget.updateCanvas()
+        
+    @Slot()
+    def appendText(self, text):
+        self.textbox.append(text)
 
 
 if __name__ == "__main__":

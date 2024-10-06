@@ -64,14 +64,6 @@ def simulation(inital_conditions: np.array, time_array: np.array, rocket: Rocket
     velocity = stateout[:,1]
     mass = stateout[:,2]
     
-    #troubshooting outputs
-    # Results 
-    print('\n\n\nResults:')
-    print(f'Apogee:  {np.max(altitude):.2f}')
-    print(f'Maxium Velocity:  {np.max(velocity):.2f}')
-    print(f'ISP:  {np.max(motor.ISP):.2f}')
-    print('\n')
-    
     return stateout
 
 class SimulationData:
@@ -98,7 +90,17 @@ class SimulationData:
         if time is not None:
             self.time = time
         
-        #setattr(self, "parent_gui", parent_gui) if parent_gui is not None
+        if parent_gui is not None:
+            parent_gui.appendText('\n\n\nResults:')
+            parent_gui.appendText(f'Apogee:  {np.max(self.altitude):.2f}')
+            parent_gui.appendText(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
+            parent_gui.appendText('\n')
+        else:
+            print('\n\n\nResults:')
+            print(f'Apogee:  {np.max(self.altitude):.2f}')
+            print(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
+            print('\n')
+        
         
 class Time:
     def __init__(self, start_time: int, end_time: int, step: float):
