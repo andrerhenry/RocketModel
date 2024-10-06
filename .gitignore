@@ -1,3 +1,14 @@
+# Ignore PyInstaller build files
+/build/
+/dist/
+*.spec
+
+# Allow the .exe file
+!dist/*.exe
+
+# Ignore Python virtual environments
+/.venv/
+
 # Ignore Python compiled files
 *.pyc
 __pycache__/
