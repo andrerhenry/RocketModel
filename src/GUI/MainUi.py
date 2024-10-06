@@ -1,4 +1,5 @@
 import sys
+import os
 from PySide6 import QtWidgets
 from PySide6.QtGui import QAction, QKeySequence, QPixmap, QFont
 from PySide6.QtCore import Slot, Qt
@@ -28,7 +29,10 @@ class MainUi(QtWidgets.QMainWindow):
         configWidget.setFixedWidth(225)
         simulationWidget = QtWidgets.QWidget()
         
-        logoPath = QPixmap("src\\GUI\\Images\\HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
+        # Redfine director for pyinstaller 
+        BASE_DIR = os.path.dirname(__file__)
+        imagePath = os.path.join(BASE_DIR, "Images", "HornetLogo.png")
+        logoPath = QPixmap(imagePath).scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
         logoLabel = QtWidgets.QLabel()
         logoLabel.setPixmap(logoPath)
         
