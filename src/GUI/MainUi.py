@@ -1,6 +1,6 @@
 import sys
 from PySide6 import QtWidgets
-from PySide6.QtGui import QAction, QKeySequence, QPixmap
+from PySide6.QtGui import QAction, QKeySequence, QPixmap, QFont
 from PySide6.QtCore import Slot, Qt
 
 from Config.Rocket_Config import RocketConfig, Motor
@@ -22,22 +22,37 @@ class MainUi(QtWidgets.QMainWindow):
         self.data = SimulationData()
         
         centralWidget = QtWidgets.QWidget()
+        headerWidget = QtWidgets.QWidget()
+        interfaceWidget = QtWidgets.QWidget()
         configWidget = QtWidgets.QWidget()
         configWidget.setFixedWidth(225)
         simulationWidget = QtWidgets.QWidget()
         
-        logoPath = QPixmap("src\GUI\Images\HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
-        self.logoLabel = QtWidgets.QLabel()
-        self.logoLabel.setPixmap(logoPath)
-        #self.logoLabel.setPixmap(logoPath.scaled(self.logoLabel.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))        
+        logoPath = QPixmap("src\\GUI\\Images\\HornetLogo.png").scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
+        logoLabel = QtWidgets.QLabel()
+        logoLabel.setPixmap(logoPath)
+        
+        titleLabel = QtWidgets.QLabel()
+        titleLabel.setText("Rocket Model")
+        titleFont = QFont()
+        titleFont.bold()
+        titleFont.setPointSize(20)
+        titleLabel.setFont(titleFont)
+        
+        headerLayout = QtWidgets.QHBoxLayout()
+        headerLayout.addWidget(logoLabel)
+        headerLayout.addWidget(titleLabel, alignment = Qt.AlignmentFlag.AlignLeading.AlignLeft)
+        headerLayout.addStretch()
+        headerWidget.setLayout(headerLayout)
+
         
         rocketConfigWidget = RocketConfigUi(self.rocket, self)
         motorConfigWidget = MotorConfigUi(self.motor, self)
         
         configLayout = QtWidgets.QVBoxLayout()
-        configLayout.addWidget(self.logoLabel)
         configLayout.addWidget(rocketConfigWidget)
         configLayout.addWidget(motorConfigWidget)
+        configLayout.addStretch()
         configWidget.setLayout(configLayout)
         
         
@@ -47,14 +62,20 @@ class MainUi(QtWidgets.QMainWindow):
         simulationLayout = QtWidgets.QVBoxLayout()
         simulationLayout.addWidget(simulationConfigWidget)
         simulationLayout.addWidget(self.figureWidget)
+        simulationLayout.addStretch()
         simulationWidget.setLayout(simulationLayout)
         
-        centralLayout = QtWidgets.QHBoxLayout()
-        centralLayout.addWidget(configWidget, alignment = Qt.AlignmentFlag.AlignLeft)
-        centralLayout.addWidget(simulationWidget, alignment=Qt.AlignmentFlag.AlignTop)
+        interfaceLayout = QtWidgets.QHBoxLayout()
+        interfaceLayout.addWidget(configWidget, alignment = Qt.AlignmentFlag.AlignLeft)
+        interfaceLayout.addWidget(simulationWidget, alignment=Qt.AlignmentFlag.AlignTop)
+        interfaceWidget.setLayout(interfaceLayout)
+               
+        
+        centralLayout = QtWidgets.QVBoxLayout()
+        centralLayout.addWidget(headerWidget)
+        centralLayout.addWidget(interfaceWidget)
         centralWidget.setLayout(centralLayout)
         self.setCentralWidget(centralWidget)
-        
         
         self.addAction
         # Exit QAction
