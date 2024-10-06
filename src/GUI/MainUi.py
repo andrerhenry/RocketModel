@@ -4,13 +4,13 @@ from PySide6 import QtWidgets
 from PySide6.QtGui import QAction, QKeySequence, QPixmap, QFont
 from PySide6.QtCore import Slot, Qt
 
-from Config.Rocket_Config import RocketConfig, Motor
-from Config.Simulation_Config import simulation, Time, SimulationData
+from config.Rocket_Config import RocketConfig, Motor
+from config.Simulation_Config import simulation, Time, SimulationData
 
-from GUI.RocketConfigUi import RocketConfigUi
-from GUI.MotorConfigUi import MotorConfigUi
-from GUI.SimulationConfigUi import SimulationUi
-from GUI.FigureWidget import FigureWidget
+from gui.RocketConfigUi import RocketConfigUi
+from gui.MotorConfigUi import MotorConfigUi
+from gui.SimulationConfigUi import SimulationUi
+from gui.FigureWidget import FigureWidget
 
 
 

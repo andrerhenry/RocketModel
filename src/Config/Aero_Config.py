@@ -1,6 +1,6 @@
 from numpy import exp, sign
 
-from Config.Rocket_Config import RocketConfig
+from config.Rocket_Config import RocketConfig
 
 
 

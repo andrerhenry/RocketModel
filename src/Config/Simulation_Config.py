@@ -1,8 +1,8 @@
 import numpy as np
 import scipy.integrate as sci
 
-from Config.Rocket_Config import RocketConfig, Motor
-from Config.Aero_Config import Aero
+from config.Rocket_Config import RocketConfig, Motor
+from config.Aero_Config import Aero
 
 
 

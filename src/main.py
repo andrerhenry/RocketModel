@@ -14,9 +14,9 @@ __version__ = "2.0.0"
 import sys
 from PySide6 import QtWidgets
 
-from Config import RocketConfig, Motor
-from Config.Simulation_Config import Time
-from GUI.MainUi import MainUi
+from config import RocketConfig, Motor
+from config.Simulation_Config import Time
+from gui.MainUi import MainUi
 
 
 
