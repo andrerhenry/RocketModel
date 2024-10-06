@@ -3,7 +3,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Slot
 
 
-from Config.Rocket_Config import Motor
+from config.Rocket_Config import Motor
 
 
 

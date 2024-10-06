@@ -2,7 +2,7 @@ import sys
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Slot
 
-from Config.Simulation_Config import Time
+from config.Simulation_Config import Time
 
 
 

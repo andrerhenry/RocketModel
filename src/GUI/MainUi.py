@@ -31,7 +31,7 @@ class MainUi(QtWidgets.QMainWindow):
         
         # Redfine director for pyinstaller 
         BASE_DIR = os.path.dirname(__file__)
-        imagePath = os.path.join(BASE_DIR, "Images", "HornetLogo.png")
+        imagePath = os.path.join(BASE_DIR, "images", "HornetLogo.png")
         logoPath = QPixmap(imagePath).scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
         logoLabel = QtWidgets.QLabel()
         logoLabel.setPixmap(logoPath)
