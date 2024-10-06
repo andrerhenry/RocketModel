@@ -56,39 +56,13 @@ class RocketConfigUi(QtWidgets.QWidget):
     @Slot()
     def setRocketMass(self):
         self.rocket.rocket_mass_0 = float(self.rocketMassEdit.text())
-        print(self.rocket.rocket_mass_0)
-        print(type(self.rocket.rocket_mass_0))
     
     @Slot()
     def setRocketDragCoef(self):
         self.rocket.drag_coefficient = float(self.dragCoefEdit.text())
-        print(self.rocket.drag_coefficient)
-        print(type(self.rocket.drag_coefficient))
     
     @Slot()
     def setRocketDiameter(self):
-        print("\n\n")
-        print(self.rocket.diameter)
-        print(self.rocket._cross_sect_area)
         self.rocket.diameter = float(self.diameterEdit.text())
-        print(self.rocket.diameter)
-        print(type(self.rocket.diameter))
-        print(self.rocket._cross_sect_area)
-        
-    
-
-
-if __name__ == "__main__":
-    # testing rocket data
-    rocket_mass_0 = 32098/1000 # kilograms
-    drag_coefficient = 0.36 #cf
-    diameter = 0.155 # meters
-    rocket = RocketConfig(rocket_mass_0, drag_coefficient, diameter)
-    
-    # testing .ui
-    app = QtWidgets.QApplication()
-    ui = RocketConfigUi(rocket)
-    ui.show()
-    
-    sys.exit(app.exec())
+   
     

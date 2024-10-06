@@ -76,43 +76,15 @@ class MotorConfigUi(QtWidgets.QWidget):
     @Slot()
     def setFuelMass(self):
         self.motor.mass_fuel = float(self.fuelMassEdit.text())
-        print(self.motor.mass_fuel)
     
     @Slot()
     def setAvgThrust(self):
         self.motor.thrust_avg = float(self.avgThrustEdit.text())
-        print(self.motor.thrust_avg)
     
     @Slot()
     def setBurnTime(self):
         self.motor.burn_time = float(self.burnTimeEditEdit.text())
-        print(self.motor.burn_time)
     
     @Slot()     
     def setTotalImpulse(self):
         self.motor.total_impulse = float(self.totalImpulseEdit.text())
-        print(self.motor.total_impulse)
-        
-        
-    
-
-
-if __name__ == "__main__":
-    
-    # n Rocket Motor Perameters
-    FuelMass = 7512.0/1000.0 # kg
-    ThrustAvg = 3168.0 # F
-    TotalImpulse = 14041.0 # Ns
-    burn_time = 4.4 #s
-    Nmotor = Motor(FuelMass, ThrustAvg, TotalImpulse, burn_time)
-   
-   
-    #print(Nmotor.motor_output(1), type(Nmotor.motor_output(1)) )
-    
-    # testing .ui
-    app = QtWidgets.QApplication()
-    ui = MotorConfigUi(Nmotor)
-    ui.show()
-    
-    sys.exit(app.exec())
-    

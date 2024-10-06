@@ -70,33 +70,16 @@ class SimulationUi(QtWidgets.QWidget):
         
     @Slot()
     def setStartTime(self):
-        print("set start time")
         self.time.start_time = float(self.startTimeEdit.text())
 
     @Slot()
     def setEndTime(self):
-        print("set end time")
         self.time.end_time = float(self.endTimeEdit.text())
     
     @Slot()
     def setStep(self):
-        print("set step ")
         self.time.step = float(self.stepTimeEdit.text())
         
     @Slot()
     def runButtonClicked(self):
-        print("run simulation")
         self.parent.runSimulation()
-
-
-if __name__ == "__main__":
-    
-    time = Time(0, 63, 0.001)
-    
-    # testing .ui
-    app = QtWidgets.QApplication()
-    ui = SimulationUi(time)
-    ui.show()
-    
-    sys.exit(app.exec())
-    
