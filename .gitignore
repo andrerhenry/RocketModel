@@ -1,7 +1,7 @@
 # Ignore PyInstaller build files
 /build/
 /dist/
-*.spec
+
 
 # Allow the .exe file
 !dist/*.exe

@@ -80,14 +80,16 @@ class SimulationData:
     t = np.linspace(0, 10, 101)
     x = np.sin(t + time.time())
     
-    def __init__(self):
+    def __init__(self, parent_gui = None):
         self.altitude = np.empty(1)
         self.velocity = np.empty(1)
         self.mass = np.empty(1)
         self.time = np.empty(1)
+        # Conditonaly set attribute if parnet gui widget is provided
+        setattr(self, "parent_gui", parent_gui) if parent_gui is not None else None
         
     
-    def update_data(self, statevector: np.ndarray = None, time: np.ndarray = None):
+    def update_data(self, statevector: np.ndarray = None, time: np.ndarray = None, parent_gui = None):
         if statevector is not None:
             self.altitude = statevector[:,0]
             self.velocity = statevector[:,1]
@@ -96,6 +98,7 @@ class SimulationData:
         if time is not None:
             self.time = time
         
+        #setattr(self, "parent_gui", parent_gui) if parent_gui is not None
         
 class Time:
     def __init__(self, start_time: int, end_time: int, step: float):

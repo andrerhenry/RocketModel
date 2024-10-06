@@ -56,7 +56,7 @@ class MainUi(QtWidgets.QMainWindow):
         configLayout = QtWidgets.QVBoxLayout()
         configLayout.addWidget(rocketConfigWidget)
         configLayout.addWidget(motorConfigWidget)
-        #configLayout.addStretch()
+        configLayout.addStretch()
         configWidget.setLayout(configLayout)
         
         
