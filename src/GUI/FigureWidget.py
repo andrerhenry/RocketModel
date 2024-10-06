@@ -40,7 +40,6 @@ class FigureWidget(QtWidgets.QWidget):
     def updateCanvas(self):
         self.axes.cla() # clear axes for fresh plot
         data_key = self.dataComboBox.currentText()
-        print(data_key)
         
         self.axes.plot(self.data.time, getattr(self.data, self.data_dict[data_key]["data"]))
         self.axes.grid()
@@ -54,7 +53,7 @@ def create_data_dict()-> dict:
     """Generates a dictionary conatianing the associated ploting elements
     for the attribute that is plotted. 
     
-    key 1: Labelfor plosts
+    key 1: Labelfor plots
     key 2: Units for data
     key 3: Attributes names for the SimulationData class, to select data with key 
     
