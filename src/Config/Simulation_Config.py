@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.integrate as sci
+from datetime import datetime
 
 from config.Rocket_Config import RocketConfig, Motor
 from config.Aero_Config import Aero
@@ -77,6 +78,8 @@ class SimulationData:
         
     
     def update_data(self, statevector: np.ndarray = None, time: np.ndarray = None, parent_gui = None):
+        current_time = datetime.now().strftime('%H:%M:%S')
+
         if statevector is not None:
             self.altitude = statevector[:,0]
             self.velocity = statevector[:,1]
@@ -86,15 +89,14 @@ class SimulationData:
             self.time = time
         
         if parent_gui is not None:
-            parent_gui.appendText('\n\n\nResults:')
+
+            parent_gui.appendText(f'\nSim ({current_time}):')
             parent_gui.appendText(f'Apogee:  {np.max(self.altitude):.2f}')
             parent_gui.appendText(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
-            parent_gui.appendText('\n')
         else:
-            print('\n\n\nResults:')
+            print(f'\nSimu ({current_time}):')
             print(f'Apogee:  {np.max(self.altitude):.2f}')
             print(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
-            print('\n')
         
         
 class Time:
