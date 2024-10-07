@@ -71,7 +71,7 @@ class MotorConfigUi(QtWidgets.QWidget):
         formLayout.addRow(self.totalImpulseLabel, self.totalImpulseEdit)
         formLayout.addRow(self.ISPLabel, self.ISPvalueLabel)
         self.setFixedWidth(200)
-        print(self.width())
+
         
     @Slot()
     def setFuelMass(self):
