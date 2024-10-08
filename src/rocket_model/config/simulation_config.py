@@ -43,13 +43,13 @@ def derivative(state: tuple[int, int, float], t: float, rocket: RocketConfig, mo
     acceleration = f_net/mass
     
     
-    # Stop integration when Rocket returns to ground
-    if altitude < 0:
-        statedot = np.array([0, acceleration, mass_dot])
+    # Stop integratoin when Rocket returns to ground
+    if (altitude < 0):
+        state_dot = np.array([0, acceleration, mass_dot])
     else:
-        statedot = np.array([velocity, acceleration, mass_dot])
+        state_dot = np.array([velocity, acceleration, mass_dot])
     
-    return statedot
+    return state_dot
 
 
 def simulation(initial_conditions: tuple[int, int, float], time_array: np.array, rocket: RocketConfig, motor: Motor) -> Sequence[float]:
@@ -64,13 +64,13 @@ def simulation(initial_conditions: tuple[int, int, float], time_array: np.array,
     Returns:
         np.ndarray: State vector of simulation data [altitude - m, velocity - m/s, mass -kg]
     """
-    stateout = sci.odeint(derivative, initial_conditions, time_array, args=(rocket, motor,))
+    state_out = sci.odeint(derivative, inital_conditions, time_array, args=(rocket, motor,))
     
-    _altitude = stateout[:,0]
-    _velocity = stateout[:,1]
-    _mass = stateout[:,2]
+    altitude = state_out[:,0]
+    velocity = state_out[:,1]
+    mass = state_out[:,2]
     
-    return stateout
+    return state_out
 
 class SimulationData:  
     def __init__(self, parent_gui = None):
@@ -82,13 +82,13 @@ class SimulationData:
         setattr(self, "parent_gui", parent_gui) if parent_gui is not None else None
         
     
-    def update_data(self, statevector: np.ndarray = None, time: np.ndarray = None, parent_gui = None):
+    def update_data(self, state_vector: np.ndarray = None, time: np.ndarray = None, parent_gui = None):
         current_time = datetime.now().strftime('%H:%M:%S')
 
-        if statevector is not None:
-            self.altitude = statevector[:,0]
-            self.velocity = statevector[:,1]
-            self.mass = statevector[:,2]
+        if state_vector is not None:
+            self.altitude = state_vector[:,0]
+            self.velocity = state_vector[:,1]
+            self.mass = state_vector[:,2]
         
         if time is not None:
             self.time = time
