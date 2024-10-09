@@ -13,7 +13,6 @@ __version__ = "2.1.0"
 
 import sys
 import os
-import time
 from PySide6 import QtWidgets, QtGui
 
 from rocket_model.config import RocketConfig, Motor
@@ -36,7 +35,7 @@ n_total_impulse = 14041.0 # Newton*seconds
 n_total_burn_time = 4.4 # seconds
 n_motor = Motor(n_fuel_mass, n_trust_avg, n_total_impulse, n_total_burn_time)
 
-time_array = Time(0, 63, 0.001)
+time_config = Time(0, 63, 0.001)
 
 
 app = QtWidgets.QApplication(sys.argv)
@@ -48,7 +47,7 @@ splash.show()
 #time.sleep(1)
 app.processEvents()
 
-ui = MainUi(rocket_Ambition, n_motor, time_array)
+ui = MainUi(rocket_Ambition, n_motor, time_config)
 ui.show()
 splash.finish(ui)
 sys.exit(app.exec())

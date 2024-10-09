@@ -1,5 +1,6 @@
 import sys
 import os
+import numpy as np
 from PySide6 import QtWidgets
 from PySide6.QtGui import QAction, QKeySequence, QPixmap, QFont
 from PySide6.QtCore import Slot, Qt
@@ -98,9 +99,9 @@ class MainUi(QtWidgets.QMainWindow):
         
     @Slot()
     def runSimulation(self):
-        initial_conditions = [0, 0, self.rocket.rocket_mass_0]
-        statevector = simulation(initial_conditions, self.time.time_array(), self.rocket, self.motor)
-        self.data.update_data(statevector, self.time.time_array(), self)
+        inital_conditions = np.array([0, 0, self.rocket.rocket_mass_0])
+        statevector, time_array = simulation(inital_conditions, self.time, self.rocket, self.motor)
+        self.data.update_data(statevector, time_array, self)
         self.figureWidget.updateCanvas()
         
     @Slot()

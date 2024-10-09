@@ -12,98 +12,6 @@ if TYPE_CHECKING:
     from numpy.typing import ArrayLike
 
 
-# Main differential equation 
-def derivative(state: tuple[int, int, float], t: float, rocket: RocketConfig, motor: Motor) -> ArrayLike:
-    """State space equation to be integrated numericaly. 
-
-    Args:
-        state (np.array): State Vector [altitude - m, velocity - m/s, mass -kg]
-        t (float): Time of current step in integratoin - seconds
-        rocket (RocketConfig): Rocketfig class containing perameters/method of rocket
-        motor (Motor): Motor class conatin peramters/methods of the motor
-
-    Returns:
-        np.ndarray: State array dervivative to be integrated [altitude_dot - m/s, velcoity_dot - m/s**2, mass_dot - kg/s]
-    """    
-    # State vector
-    altitude = state[0]
-    velocity = state[1]
-    mass = state[2]
-    
-    GRAVITY = 9.81 # m/s^2 change in gravity considered negligible
-    aero = Aero(rocket)
-    
-   
-    # Forces
-    f_gravity = GRAVITY * mass
-    f_aero = aero.F_aero_drag(velocity, altitude)
-    f_thrust, mass_dot = motor.motor_output(t)
-    
-    f_net = f_thrust - f_aero - f_gravity
-    acceleration = f_net/mass
-    
-    
-    # Stop integratoin when Rocket returns to ground
-    if (altitude < 0):
-        state_dot = np.array([0, acceleration, mass_dot])
-    else:
-        state_dot = np.array([velocity, acceleration, mass_dot])
-    
-    return state_dot
-
-
-def simulation(initial_conditions: tuple[int, int, float], time_array: np.array, rocket: RocketConfig, motor: Motor) -> Sequence[float]:
-    """Main Simulation fucntion that integrate the system dynamics
-
-    Args:
-        inital_conditions (np.array): Inital condition of the system [altitude - m, velocity - m/s, mass -kg]
-        time_array (np.array): Time array (sec)
-        rocket (RocketConfig): _description_
-        motor (Motor): _description_
-
-    Returns:
-        np.ndarray: State vector of simulation data [altitude - m, velocity - m/s, mass -kg]
-    """
-    state_out = sci.odeint(derivative, inital_conditions, time_array, args=(rocket, motor,))
-    
-    altitude = state_out[:,0]
-    velocity = state_out[:,1]
-    mass = state_out[:,2]
-    
-    return state_out
-
-class SimulationData:  
-    def __init__(self, parent_gui = None):
-        self.altitude = np.empty(1)
-        self.velocity = np.empty(1)
-        self.mass = np.empty(1)
-        self.time = np.empty(1)
-        # Conditonaly set attribute if parnet gui widget is provided
-        setattr(self, "parent_gui", parent_gui) if parent_gui is not None else None
-        
-    
-    def update_data(self, state_vector: np.ndarray = None, time: np.ndarray = None, parent_gui = None):
-        current_time = datetime.now().strftime('%H:%M:%S')
-
-        if state_vector is not None:
-            self.altitude = state_vector[:,0]
-            self.velocity = state_vector[:,1]
-            self.mass = state_vector[:,2]
-        
-        if time is not None:
-            self.time = time
-        
-        if parent_gui is not None:
-
-            parent_gui.appendText(f'\nSim ({current_time}):')
-            parent_gui.appendText(f'Apogee:  {np.max(self.altitude):.2f}')
-            parent_gui.appendText(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
-        else:
-            print(f'\nSimu ({current_time}):')
-            print(f'Apogee:  {np.max(self.altitude):.2f}')
-            print(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
-        
-        
 class Time:
     def __init__(self, start_time: int, end_time: int, step: float):
         """Holds time data perameteres \n
@@ -142,10 +50,108 @@ class Time:
     def step(self, new_step):
         self._step = new_step
     
-    def time_array(self) -> np.ndarray:
+    def get_time_array(self) -> np.ndarray:
         """Generates a time array to simulate across
 
         Returns:
             np.ndarray: Time array
         """        
         return np.arange(self._start_time, self._end_time, self._step)
+
+
+# Main differential equation 
+def derivative(t: float, state: np.array, rocket: RocketConfig, motor: Motor) -> np.ndarray:
+    """State space equation to be integrated numericaly. 
+
+    Args:
+        state (np.array): State Vector [altitude - m, velocity - m/s, mass -kg]
+        t (float): Time of current step in integratoin - seconds
+        rocket (RocketConfig): Rocketfig class containing perameters/method of rocket
+        motor (Motor): Motor class conatin peramters/methods of the motor
+
+    Returns:
+        np.ndarray: State array dervivative to be integrated [altitude_dot - m/s, velcoity_dot - m/s**2, mass_dot - kg/s]
+    """    
+    GRAVITY = 9.81 # m/s^2 change in gravity considered negligible
+    aero = Aero(rocket)
+
+    # State vector
+    altitude = state[0]
+    velocity = state[1]
+    mass = state[2]
+    
+    # Forces
+    f_gravity = GRAVITY * mass
+    f_aero = aero.F_aero_drag(velocity, altitude)
+    f_thrust, mass_dot = motor.motor_output(t)
+    
+    f_net = f_thrust - f_aero - f_gravity
+    acceleration = f_net/mass
+    
+    state_dot = np.array([velocity, acceleration, mass_dot])
+    
+    return state_dot
+
+
+# Define an event function to stop integration when z (position) goes below zero
+def ground_event(t, state, *args):
+    return state[0]
+ground_event.terminal = True  # Stop the integration when the event is triggered
+ground_event.direction = -1   # The event occurs when z is decreasing
+
+
+
+def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: RocketConfig, motor: Motor) -> tuple[asarray, asarray ]:
+    """Main Simulation fucntion that integrate the system dynamics
+
+    Args:
+        inital_conditions (np.array): Inital condition of the system [altitude - m, velocity - m/s, mass -kg]
+        time_array (np.array): Time array (sec)
+        rocket (RocketConfig): _description_
+        motor (Motor): _description_
+
+    Returns:
+        np.ndarray: State vector of simulation data [altitude - m, velocity - m/s, mass -kg]
+    """
+    t_span = (time.start_time, time.end_time)
+    
+    solution = sci.solve_ivp(derivative, t_span, inital_conditions, t_eval=time.get_time_array(), events = ground_event, args=(rocket, motor,))
+    
+    state_out = solution.y
+    time_out = solution.t
+    
+    return state_out, time_out
+
+
+class SimulationData:  
+    def __init__(self, parent_gui = None):
+        self.altitude = np.empty(1)
+        self.velocity = np.empty(1)
+        self.mass = np.empty(1)
+        self.time = np.empty(1)
+        # Conditonaly set attribute if parnet gui widget is provided
+        setattr(self, "parent_gui", parent_gui) if parent_gui is not None else None
+        
+    
+    def update_data(self, state_vector: np.ndarray = None, time: np.ndarray = None, parent_gui = None):
+        self.current_time = datetime.now().strftime('%H:%M:%S')
+
+        if state_vector is not None:
+            self.altitude = state_vector[0]
+            self.velocity = state_vector[1]
+            self.mass = state_vector[2]
+        
+        if time is not None:
+            self.time = time
+        
+        if parent_gui is not None:
+            parent_gui.appendText(f'\nSim ({self.current_time}):')
+            parent_gui.appendText(f'Apogee:  {np.max(self.altitude):.2f}')
+            parent_gui.appendText(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
+            
+        else:
+            print(f'\nSimu ({self.current_time}):')
+            print(f'Apogee:  {np.max(self.altitude):.2f}')
+            print(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
+        
+        
