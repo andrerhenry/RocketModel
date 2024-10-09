@@ -100,8 +100,8 @@ class MainUi(QtWidgets.QMainWindow):
     @Slot()
     def runSimulation(self):
         inital_conditions = np.array([0, 0, self.rocket.rocket_mass_0])
-        statevector, time_array = simulation(inital_conditions, self.time, self.rocket, self.motor)
-        self.data.update_data(statevector, time_array, self)
+        time_array, state, state_dot = simulation(inital_conditions, self.time, self.rocket, self.motor)
+        self.data.update_data(time_array, state, state_dot, self)
         self.figureWidget.updateCanvas()
         
     @Slot()

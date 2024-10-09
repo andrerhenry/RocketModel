@@ -66,8 +66,9 @@ def create_data_dict()-> dict:
     data_dict = {
     "Altitude": {"label": "Altitude (m)", "units": "(m)", "data": "altitude"},
     "Velocity": {"label": "Velocity (m/s)", "units": "(m/s)", "data": "velocity"},
-    #"Acceleration": {"label": "Acceleration (m/s^2)", "units": "(m/s^2)", "data": "acceleration"},
-    "Mass": {"label": "Mass (kg)", "units": "(kg)", "data": "mass"}
+    "Acceleration": {"label": "Acceleration (m/s^2)", "units": "(m/s^2)", "data": "acceleration"},
+    "Mass": {"label": "Mass (kg)", "units": "(kg)", "data": "mass"},
+    "Mass_dot":{"label": "Mass_dot (kg/s)", "units": "(kg/s)", "data": "mass_dot"},
     }
     
     return data_dict

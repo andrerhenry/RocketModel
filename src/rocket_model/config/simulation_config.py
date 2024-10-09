@@ -112,46 +112,60 @@ def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: Ro
 
     Returns:
         np.ndarray: State vector of simulation data [altitude - m, velocity - m/s, mass -kg]
+        np.ndarray: State derivative vector of simulation data [velocity - m/s, acceleration - m/s^2, mass_dot - kg/s]
     """
     t_span = (time.start_time, time.end_time)
     
     solution = sci.solve_ivp(derivative, t_span, inital_conditions, t_eval=time.get_time_array(), events = ground_event, args=(rocket, motor,))
     
-    state_out = solution.y
-    time_out = solution.t
-    
-    return state_out, time_out
+    time = solution.t    
+    state = solution.y
+    state_dot = np.array([derivative(t, state, rocket, motor) for t, state in zip(solution.t, solution.y.T)]).T # Transpost length will be the same as time
+    print(np.shape(time))
+    print(np.shape(state))
+    print(np.shape(state_dot))
+    return time, state, state_dot
 
 
 class SimulationData:  
     def __init__(self, parent_gui = None):
+        self.time = np.empty(1)
         self.altitude = np.empty(1)
         self.velocity = np.empty(1)
         self.mass = np.empty(1)
-        self.time = np.empty(1)
+        self.acceleration = np.empty(1)
+        self.mass_dot = np.empty(1)
+
         # Conditonaly set attribute if parnet gui widget is provided
         setattr(self, "parent_gui", parent_gui) if parent_gui is not None else None
         
     
-    def update_data(self, state_vector: np.ndarray = None, time: np.ndarray = None, parent_gui = None):
+    def update_data(self, time: np.ndarray = None, state: np.ndarray = None, state_dot: np.ndarray = None, parent_gui = None):
         self.current_time = datetime.now().strftime('%H:%M:%S')
 
-        if state_vector is not None:
-            self.altitude = state_vector[0]
-            self.velocity = state_vector[1]
-            self.mass = state_vector[2]
-        
         if time is not None:
             self.time = time
+        
+        if state is not None:
+            self.altitude = state[0]
+            self.velocity = state[1]
+            self.mass = state[2]
+            
+        if state_dot is not None:
+            self.acceleration = state_dot[1]
+            self.mass_dot = state_dot[2]
+
         
         if parent_gui is not None:
             parent_gui.appendText(f'\nSim ({self.current_time}):')
             parent_gui.appendText(f'Apogee:  {np.max(self.altitude):.2f}')
             parent_gui.appendText(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
+            parent_gui.appendText(f'Maxium Acceleration:  {np.max(self.acceleration):.2f}')
             
         else:
             print(f'\nSimu ({self.current_time}):')
             print(f'Apogee:  {np.max(self.altitude):.2f}')
             print(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
+            print(f'Maxium Acceleration:  {np.max(self.acceleration):.2f}')
         
         
