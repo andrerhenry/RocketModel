@@ -9,7 +9,7 @@
         *Rocket is stable and rigid
         *Motor is considered to burn even andn consitantly for the burn time
 """
-__version__ = "2.0.0"
+__version__ = "2.1.0"
 
 import sys
 import os
@@ -45,7 +45,7 @@ BASE_DIR = os.path.dirname(__file__)
 splash_path = os.path.join(BASE_DIR, "gui/images", "splash.png")
 splash = QtWidgets.QSplashScreen(QtGui.QPixmap(splash_path).scaled(700, 700))
 splash.show()
-time.sleep(1)
+#time.sleep(1)
 app.processEvents()
 
 ui = MainUi(rocket_Ambition, n_motor, time_array)
