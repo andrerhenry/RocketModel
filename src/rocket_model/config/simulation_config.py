@@ -163,7 +163,7 @@ class SimulationData:
             parent_gui.appendText(f'Maxium Acceleration:  {np.max(self.acceleration):.2f}')
             
         else:
-            print(f'\nSimu ({self.current_time}):')
+            print(f'\nSim ({self.current_time}):')
             print(f'Apogee:  {np.max(self.altitude):.2f}')
             print(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
             print(f'Maxium Acceleration:  {np.max(self.acceleration):.2f}')
