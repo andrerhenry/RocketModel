@@ -1,5 +1,6 @@
 from PySide6 import QtWidgets
-from PySide6.QtCore import Slot, Qt
+from PySide6.QtCore import Slot
+from PySide6.QtGui import QFont
 
 from matplotlib.backends.backend_qtagg import FigureCanvasQT
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
@@ -11,10 +12,12 @@ class FigureWidget(QtWidgets.QWidget):
         super().__init__()
         self.parent = parent
         self.data = parent.data
-        #self.data.meta_data = create_data_dict()
         
         dataComboLabel = QtWidgets.QLabel()
         dataComboLabel.setFixedSize(200,16)
+        font = QFont()
+        font.setBold(True)
+        dataComboLabel.setFont(font)
         dataComboLabel.setText("Plot Selected Data:")
                 
         self.dataComboBox = QtWidgets.QComboBox()
@@ -33,9 +36,7 @@ class FigureWidget(QtWidgets.QWidget):
         self.updateCanvas()
         
         layout = QtWidgets.QVBoxLayout(self)
-        
         layout.addWidget(NavigationToolbar(self.figureCanvas, self))
-        
         layout.addWidget(self.figureCanvas)
         layout.addWidget(header)
     
