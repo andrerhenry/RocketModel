@@ -11,14 +11,14 @@ class FigureWidget(QtWidgets.QWidget):
         super().__init__()
         self.parent = parent
         self.data = parent.data
-        self.data_dict = create_data_dict()
+        #self.data.meta_data = create_data_dict()
         
         dataComboLabel = QtWidgets.QLabel()
         dataComboLabel.setFixedSize(200,16)
         dataComboLabel.setText("Plot Selected Data:")
                 
         self.dataComboBox = QtWidgets.QComboBox()
-        self.dataComboBox.addItems(self.data_dict.keys())
+        self.dataComboBox.addItems(self.data.meta_data.keys())
         self.dataComboBox.currentTextChanged.connect(self.updateCanvas)
         
         header = QtWidgets.QWidget()
@@ -41,12 +41,12 @@ class FigureWidget(QtWidgets.QWidget):
     @Slot()
     def updateCanvas(self):
         self.axes.cla() # clear axes for fresh plot
-        data_key = self.dataComboBox.currentText()
+        key = self.dataComboBox.currentText()
         
-        self.axes.plot(self.data.time, getattr(self.data, self.data_dict[data_key]["data"]))
+        self.axes.plot(self.data.time, getattr(self.data, self.data.meta_data[key]["data"]))
         self.axes.grid()
-        self.axes.set_title(data_key)
-        self.axes.set_ylabel(self.data_dict[data_key]["label"])
+        self.axes.set_title(key)
+        self.axes.set_ylabel(self.data.meta_data[key]["label"])
         self.axes.set_xlabel("Time (s)")
         self.figureCanvas.draw()
     

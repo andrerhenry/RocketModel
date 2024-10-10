@@ -138,7 +138,14 @@ class SimulationData:
 
         # Conditonaly set attribute if parnet gui widget is provided
         setattr(self, "parent_gui", parent_gui) if parent_gui is not None else None
-        
+    
+    meta_data = {
+            "Altitude": {"label": "Altitude (m)", "units": "(m)", "data": "altitude"},
+            "Velocity": {"label": "Velocity (m/s)", "units": "(m/s)", "data": "velocity"},
+            "Acceleration": {"label": "Acceleration (m/s^2)", "units": "(m/s^2)", "data": "acceleration"},
+            "Mass": {"label": "Mass (kg)", "units": "(kg)", "data": "mass"},
+            "Mass_dot":{"label": "Mass_dot (kg/s)", "units": "(kg/s)", "data": "mass_dot"},
+        }
     
     def update_data(self, time: np.ndarray = None, state: np.ndarray = None, state_dot: np.ndarray = None, parent_gui = None):
         self.current_time = datetime.now().strftime('%H:%M:%S')
@@ -154,7 +161,6 @@ class SimulationData:
         if state_dot is not None:
             self.acceleration = state_dot[1]
             self.mass_dot = state_dot[2]
-
         
         if parent_gui is not None:
             parent_gui.appendText(f'\nSim ({self.current_time}):')
