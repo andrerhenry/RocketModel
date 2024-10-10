@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['src\\main.py'],
+    ['src\\rocekt_model\\main.py'],
     pathex=['.'],
     binaries=[],
     datas=[
