@@ -33,10 +33,11 @@ class FigureWidget(QtWidgets.QWidget):
         self.updateCanvas()
         
         layout = QtWidgets.QVBoxLayout(self)
-        layout.addWidget(header)
-        layout.addWidget(NavigationToolbar(self.figureCanvas, self))
-        layout.addWidget(self.figureCanvas,alignment = Qt.AlignmentFlag.AlignBaseline)
         
+        layout.addWidget(NavigationToolbar(self.figureCanvas, self))
+        
+        layout.addWidget(self.figureCanvas)
+        layout.addWidget(header)
     
     @Slot()
     def updateCanvas(self):
