@@ -1,7 +1,6 @@
 from numpy import abs, pi
 
 
-
 class RocketConfig:    
     def __init__(self, rocket_mass_0: float, drag_coefficient: float, diameter: float) -> None:
         """Initalize and storage of rocket charitaristic variables
@@ -13,22 +12,20 @@ class RocketConfig:
         """
         self.rocket_mass_0 = rocket_mass_0
         self.drag_coefficient = drag_coefficient
-        self._diameter = diameter
-        self._cross_sect_area = self._cross_sect_area_calc(diameter)
-        pass
+        self.diameter = diameter
     
     @property
-    def diameter(self):
+    def diameter(self) -> float:
         return self._diameter
     
     @diameter.setter
-    def diameter(self, new_diameter):
+    def diameter(self, new_diameter: float) -> None:
         # Set Cross sectional aera on change of diameter
         self._cross_sect_area = self._cross_sect_area_calc(new_diameter)
         self._diameter = new_diameter
 
     @property
-    def cross_sect_area(self):
+    def cross_sect_area(self) -> float:  # NOTE: Swap to using a cached property calling the calc
         return self._cross_sect_area
     
     def _cross_sect_area_calc(self, diameter: float) -> float:
@@ -40,10 +37,10 @@ class RocketConfig:
         Returns:
             float: Cross sectional aera - meters^2
         """        
-        return pi*(diameter/2)**2
+        return pi * (diameter / 2) ** 2
         
 
-class Motor():
+class Motor:
     GRAVITY = -9.81
     
     def __init__(self, mass_fuel: float, thrust_avg: float, total_impulse: float, total_burn_time: float) -> None:
@@ -59,36 +56,36 @@ class Motor():
         self.thrust_avg = thrust_avg
         self._total_impulse = total_impulse
         self.burn_time = total_burn_time
-        self._ISP = self.spcific_impulse()
+        self._ISP = self.specific_impulse()
         pass
        
     @property
-    def mass_fuel(self):
+    def mass_fuel(self) -> float:
         return self._mass_fuel
     
     @mass_fuel.setter
-    def mass_fuel(self, new_mass_fuel):
+    def mass_fuel(self, new_mass_fuel: float) -> None:
         self._mass_fuel = new_mass_fuel
-        self._ISP = self.spcific_impulse()
+        self._ISP = self.specific_impulse()
     
     @property
-    def total_impulse(self):
+    def total_impulse(self) -> float:
         return self._total_impulse
     
     @total_impulse.setter
-    def total_impulse(self, new_total_impulse):
+    def total_impulse(self, new_total_impulse: float) -> None:
         self._total_impulse = new_total_impulse
-        self._ISP = self.spcific_impulse()
+        self._ISP = self.specific_impulse()
         
     @property
-    def ISP(self):
+    def ISP(self) -> float:
         return self._ISP
 
-    def spcific_impulse(self) -> float:
-        return self._total_impulse/(self._mass_fuel*abs(self.GRAVITY))
+    def specific_impulse(self) -> float:
+        return self._total_impulse / (self._mass_fuel * abs(self.GRAVITY))
 
     
-    def motor_output(self, t: float) -> tuple [float, float]:
+    def motor_output(self, t: float) -> tuple[float, float]:
         """Motor_output is the returns the thrust and mass_dot
 
         Args:
@@ -104,10 +101,10 @@ class Motor():
             f_thrust = 0.0
             
         exit_velcoity = self.ISP * self.GRAVITY
-        mass_dot = f_thrust/exit_velcoity
+        mass_dot = f_thrust / exit_velcoity
         return f_thrust, mass_dot
         
-        __doc__ = __init__.__doc__
+    __doc__ = __init__.__doc__
         
 
 if __name__ == "__main__":
@@ -132,5 +129,5 @@ if __name__ == "__main__":
     print(Nmotor.mass_fuel, Nmotor.ISP)
     Nmotor.total_impulse = 15000.0
     print(Nmotor.total_impulse, Nmotor.ISP)
-   """
-    #print(Nmotor.motor_output(1), type(Nmotor.motor_output(1)) )
+    """
+    print(Nmotor.motor_output(1), type(Nmotor.motor_output(1)) )
