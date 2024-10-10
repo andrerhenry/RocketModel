@@ -2,8 +2,8 @@ import numpy as np
 import scipy.integrate as sci
 from datetime import datetime
 
-from config.Rocket_Config import RocketConfig, Motor
-from config.Aero_Config import Aero
+from rocket_model.config.rocket_config import RocketConfig, Motor
+from rocket_model.config.aero_config import Aero
 
 
 

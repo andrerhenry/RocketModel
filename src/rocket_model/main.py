@@ -16,21 +16,21 @@ import os
 import time
 from PySide6 import QtWidgets, QtGui
 
-from config import RocketConfig, Motor
-from config.Simulation_Config import Time
-from gui.MainUi import MainUi
+from rocket_model.config import RocketConfig, Motor
+from rocket_model.config.simulation_config import Time
+from rocket_model.gui.MainUi import MainUi
 
 
 
 # Defulat perameters to use in GUI
 # Rocket: Ambition
-rocket_mass_0 = 32098/1000 # kilograms
+rocket_mass_0 = 32098 / 1000 # kilograms
 drag_coefficient = 0.36 #cf
 diameter = 0.155 # meters
 rocket_Ambition = RocketConfig(rocket_mass_0, drag_coefficient, diameter)
 
 # N Motor Perameters
-n_fuel_mass = 7512/1000 # kg
+n_fuel_mass = 7512 / 1000 # kg
 n_trust_avg = 3168.0 # Newtons
 n_total_impulse = 14041.0 # Newton*seconds
 n_total_burn_time = 4.4 # seconds

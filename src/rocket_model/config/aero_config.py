@@ -1,6 +1,6 @@
 from numpy import exp, sign
 
-from config.Rocket_Config import RocketConfig
+from rocket_model.config.rocket_config import RocketConfig
 
 
 
@@ -49,5 +49,5 @@ class Aero:
 
     
 if __name__ == "__main__":
-    #print(Aero.F_aero_drag(100.0, 500.0))
+    # print(Aero.F_aero_drag(100.0, 500.0))
     pass

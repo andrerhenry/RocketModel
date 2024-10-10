@@ -6,25 +6,24 @@ authors = ["andrerhenry <kinghenry238@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
+packages = [
+    { include = "rocket_model", from = "src" },
+]
+
+
 [tool.poetry.dependencies]
-python = ">=3.12,<3.13"
+python = "~3.12.0"
 numpy = "^2.1.2"
 scipy = "^1.14.1"
 matplotlib = "^3.9.2"
 PySide6 = "^6.7.3"
 pyside6-essentials = "^6.7.3"
-#config = {path = "src\\config"}
-#gui = {path = "src\\gui"}
-[tool.poetry.dependencies.config]
-path = "src/config"
-
-[tool.poetry.dependencies.gui]
-path = "src/gui"
 
 
 [tool.poetry.group.dev.dependencies]
 pyinstaller = "^6.10.0"
 
+
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.2.0"]
 build-backend = "poetry.core.masonry.api"
