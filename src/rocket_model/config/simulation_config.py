@@ -114,16 +114,15 @@ def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: Ro
         np.ndarray: State vector of simulation data [altitude - m, velocity - m/s, mass -kg]
         np.ndarray: State derivative vector of simulation data [velocity - m/s, acceleration - m/s^2, mass_dot - kg/s]
     """
+    
     t_span = (time.start_time, time.end_time)
     
     solution = sci.solve_ivp(derivative, t_span, inital_conditions, t_eval=time.get_time_array(), events = ground_event, args=(rocket, motor,))
     
     time = solution.t    
     state = solution.y
-    state_dot = np.array([derivative(t, state, rocket, motor) for t, state in zip(solution.t, solution.y.T)]).T # Transpost length will be the same as time
-    print(np.shape(time))
-    print(np.shape(state))
-    print(np.shape(state_dot))
+    state_dot = np.array([derivative(t, state, rocket, motor) for t, state in zip(solution.t, solution.y.T)]).T # transpose so size will match time
+
     return time, state, state_dot
 
 
