@@ -2,12 +2,12 @@
 
 
 a = Analysis(
-    ['src\\rocekt_model\\main.py'],
+    ['src\\rocket_model\\main.py'],
     pathex=['.'],
     binaries=[],
     datas=[
-        ('src\\rocekt_model\\gui\\images\\HornetLogo.png', 'gui\\images'),
-        ('src\\rocekt_model\\gui\\images\\splash.png', 'gui\\images')
+        ('src\\rocket_model\\gui\\images\\HornetLogo.png', 'gui\\images'),
+        ('src\\rocket_model\\gui\\images\\splash.png', 'gui\\images')
         ],
     hiddenimports=[],
     hookspath=[],
