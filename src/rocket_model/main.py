@@ -1,18 +1,19 @@
-""" Rocket Flight Calculator
+""" Rocket Flight Model
     Author: Andre Henry
-    Date: 5/12/2024
+    Date: 10/9/2024
 
-    This Code is to providoe rough flight calcuation data for a Rocket desing. 
+    This Code is to provide rough flight calcuation data for a Rocket desing. 
     Assumtions in this code:
         *Gravity is constaint
         *Rocket AOA is zero
         *Rocket is stable and rigid
-        *Motor is considered to burn even andn consitantly for the burn time
+        *Motor is considered to burn evenly consitantly for the burn time
 """
 __version__ = "2.1.0"
 
 import sys
 import os
+import time
 from PySide6 import QtWidgets, QtGui
 
 from rocket_model.config import RocketConfig, Motor
@@ -44,7 +45,7 @@ BASE_DIR = os.path.dirname(__file__)
 splash_path = os.path.join(BASE_DIR, "gui/images", "splash.png")
 splash = QtWidgets.QSplashScreen(QtGui.QPixmap(splash_path).scaled(700, 700))
 splash.show()
-#time.sleep(1)
+time.sleep(1)
 app.processEvents()
 
 ui = MainUi(rocket_Ambition, n_motor, time_config)
