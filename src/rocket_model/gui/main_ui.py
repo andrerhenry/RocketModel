@@ -21,6 +21,7 @@ class MainUi(QtWidgets.QMainWindow):
         self.motor = motor
         self.time = time
         self.data = SimulationData()
+        self.setWindowTitle("Hornet Aerospace and Propultion - Rocket Model")
         
         centralWidget = QtWidgets.QWidget()
         headerWidget = QtWidgets.QWidget()
@@ -29,7 +30,7 @@ class MainUi(QtWidgets.QMainWindow):
         configWidget.setFixedWidth(225)
         simulationWidget = QtWidgets.QWidget()
         
-        # Redfine director for pyinstaller 
+        # Redefine directory for pyinstaller 
         BASE_DIR = os.path.dirname(__file__)
         imagePath = os.path.join(BASE_DIR, "images", "HornetLogo.png")
         logoPath = QPixmap(imagePath).scaled(
@@ -65,7 +66,6 @@ class MainUi(QtWidgets.QMainWindow):
         configLayout.addWidget(rocketConfigWidget)
         configLayout.addWidget(motorConfigWidget)
         configLayout.addWidget(self.textbox)
-        #configLayout.addStretch()
         configWidget.setLayout(configLayout)
         
         
