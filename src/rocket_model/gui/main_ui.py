@@ -4,14 +4,13 @@ from PySide6 import QtWidgets
 from PySide6.QtGui import QAction, QKeySequence, QPixmap, QFont
 from PySide6.QtCore import Slot, Qt
 
-from config.Rocket_Config import RocketConfig, Motor
-from config.Simulation_Config import simulation, Time, SimulationData
+from rocket_model.config.rocket_config import RocketConfig, Motor
+from rocket_model.config.simulation_config import simulation, Time, SimulationData
 
-from gui.RocketConfigUi import RocketConfigUi
-from gui.MotorConfigUi import MotorConfigUi
-from gui.SimulationConfigUi import SimulationUi
-from gui.FigureWidget import FigureWidget
-
+from rocket_model.gui.rocket_config_ui import RocketConfigUI
+from rocket_model.gui.motor_config_ui import MotorConfigUI
+from rocket_model.gui.simulation_config_ui import SimulationUI
+from rocket_model.gui.figure_widget import FigureWidget
 
 
 class MainUi(QtWidgets.QMainWindow):
@@ -32,7 +31,12 @@ class MainUi(QtWidgets.QMainWindow):
         # Redfine director for pyinstaller 
         BASE_DIR = os.path.dirname(__file__)
         imagePath = os.path.join(BASE_DIR, "images", "HornetLogo.png")
-        logoPath = QPixmap(imagePath).scaled(configWidget.width(), configWidget.width(), aspectMode = Qt.KeepAspectRatio , mode = Qt.SmoothTransformation)
+        logoPath = QPixmap(imagePath).scaled(
+            configWidget.width(),
+            configWidget.width(),
+            aspectMode=Qt.AspectRatioMode.KeepAspectRatio,
+            mode=Qt.TransformationMode.SmoothTransformation
+        )
         logoLabel = QtWidgets.QLabel()
         logoLabel.setPixmap(logoPath)
         
@@ -50,8 +54,8 @@ class MainUi(QtWidgets.QMainWindow):
         headerWidget.setLayout(headerLayout)
 
         
-        rocketConfigWidget = RocketConfigUi(self.rocket, self)
-        motorConfigWidget = MotorConfigUi(self.motor, self)
+        rocketConfigWidget = RocketConfigUI(self.rocket, self)
+        motorConfigWidget = MotorConfigUI(self.motor, self)
         
         self.textbox = QtWidgets.QTextEdit()
         
@@ -64,7 +68,7 @@ class MainUi(QtWidgets.QMainWindow):
         configWidget.setLayout(configLayout)
         
         
-        simulationConfigWidget = SimulationUi(self.time, self)
+        simulationConfigWidget = SimulationUI(self.time, self)
         self.figureWidget = FigureWidget(self)
         
         simulationLayout = QtWidgets.QVBoxLayout()
@@ -88,14 +92,14 @@ class MainUi(QtWidgets.QMainWindow):
         self.addAction
         # Exit QAction
         exit_action = QAction("Exit", self)
-        exit_action.setShortcut(QKeySequence.Quit)
+        exit_action.setShortcut(QKeySequence.Quit)  # NOTE: Seems to only be valid on Mac OS
         exit_action.triggered.connect(self.close)
         
         
     @Slot()
     def runSimulation(self):
-        inital_conditions = [0, 0, self.rocket.rocket_mass_0]
-        statevector = simulation(inital_conditions, self.time.time_array(), self.rocket, self.motor)
+        initial_conditions = [0, 0, self.rocket.rocket_mass_0]
+        statevector = simulation(initial_conditions, self.time.time_array(), self.rocket, self.motor)
         self.data.update_data(statevector, self.time.time_array(), self)
         self.figureWidget.updateCanvas()
         
@@ -128,4 +132,3 @@ if __name__ == "__main__":
     ui.show()
     
     sys.exit(app.exec())
-    

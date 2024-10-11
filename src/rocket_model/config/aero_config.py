@@ -3,7 +3,6 @@ from numpy import exp, sign
 from rocket_model.config.rocket_config import RocketConfig
 
 
-
 class Aero:
     def  __init__(self, rocket: RocketConfig) -> None:
         """Provides the aerodynamic charicatistices of a rocket

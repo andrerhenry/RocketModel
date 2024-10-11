@@ -1,16 +1,14 @@
-import sys
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Slot
 
-from config.Simulation_Config import Time
+from rocket_model.config.simulation_config import Time
 
 
-
-class SimulationUi(QtWidgets.QWidget):
+class SimulationUI(QtWidgets.QWidget):
     def __init__(self, time: Time, parent = None):
         super().__init__(parent)
         self.time = time
-        self.parent = parent
+        self._parent = parent
        
         self.configLabel = QtWidgets.QLabel()
         self.configLabel.setGeometry(QtCore.QRect(0, 15, 175, 21))
@@ -82,4 +80,4 @@ class SimulationUi(QtWidgets.QWidget):
         
     @Slot()
     def runButtonClicked(self):
-        self.parent.runSimulation()
+        self._parent.runSimulation()

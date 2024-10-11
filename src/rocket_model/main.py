@@ -18,7 +18,7 @@ from PySide6 import QtWidgets, QtGui
 
 from rocket_model.config import RocketConfig, Motor
 from rocket_model.config.simulation_config import Time
-from rocket_model.gui.MainUi import MainUi
+from rocket_model.gui.main_ui import MainUi
 
 
 

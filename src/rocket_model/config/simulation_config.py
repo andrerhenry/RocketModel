@@ -1,14 +1,19 @@
+from __future__ import annotations
+
 import numpy as np
 import scipy.integrate as sci
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from rocket_model.config.rocket_config import RocketConfig, Motor
 from rocket_model.config.aero_config import Aero
 
+if TYPE_CHECKING:
+    from numpy.typing import ArrayLike
 
 
 # Main differential equation 
-def derivative(state: np.array, t: float, rocket: RocketConfig, motor: Motor) -> np.ndarray:
+def derivative(state: tuple[int, int, float], t: float, rocket: RocketConfig, motor: Motor) -> ArrayLike:
     """State space equation to be integrated numericaly. 
 
     Args:
@@ -38,8 +43,8 @@ def derivative(state: np.array, t: float, rocket: RocketConfig, motor: Motor) ->
     acceleration = f_net/mass
     
     
-    # Stop integratoin when Rocket returns to ground
-    if (altitude < 0):
+    # Stop integration when Rocket returns to ground
+    if altitude < 0:
         statedot = np.array([0, acceleration, mass_dot])
     else:
         statedot = np.array([velocity, acceleration, mass_dot])
@@ -47,7 +52,7 @@ def derivative(state: np.array, t: float, rocket: RocketConfig, motor: Motor) ->
     return statedot
 
 
-def simulation(inital_conditions: np.array, time_array: np.array, rocket: RocketConfig, motor: Motor) -> np.ndarray:
+def simulation(initial_conditions: tuple[int, int, float], time_array: np.array, rocket: RocketConfig, motor: Motor) -> SequenceLike[float]:
     """Main Simulation fucntion that integrate the system dynamics
 
     Args:
@@ -59,11 +64,11 @@ def simulation(inital_conditions: np.array, time_array: np.array, rocket: Rocket
     Returns:
         np.ndarray: State vector of simulation data [altitude - m, velocity - m/s, mass -kg]
     """
-    stateout = sci.odeint(derivative, inital_conditions, time_array, args=(rocket, motor,))
+    stateout = sci.odeint(derivative, initial_conditions, time_array, args=(rocket, motor,))
     
-    altitude = stateout[:,0]
-    velocity = stateout[:,1]
-    mass = stateout[:,2]
+    _altitude = stateout[:,0]
+    _velocity = stateout[:,1]
+    _mass = stateout[:,2]
     
     return stateout
 

@@ -444,6 +444,23 @@ files = [
 ]
 
 [[package]]
+name = "optype"
+version = "0.6.1"
+description = "Building blocks for precise & flexible type hints"
+optional = false
+python-versions = "<4.0.0,>=3.10.1"
+files = [
+    {file = "optype-0.6.1-py3-none-any.whl", hash = "sha256:ba45f940b7d858225c2995e273f404f1c7c8b2f1d71041b1413e5105104d2515"},
+    {file = "optype-0.6.1.tar.gz", hash = "sha256:3a410d65632a449e63a03182eb504d03f404427a99724868e7e393eb8e376207"},
+]
+
+[package.dependencies]
+typing-extensions = {version = ">=4.8", markers = "python_version < \"3.13\""}
+
+[package.extras]
+numpy = ["numpy (>=1.24,<3)"]
+
+[[package]]
 name = "packaging"
 version = "24.1"
 description = "Core utilities for Python packages"
@@ -752,6 +769,21 @@ doc = ["jupyterlite-pyodide-kernel", "jupyterlite-sphinx (>=0.13.1)", "jupytext"
 test = ["Cython", "array-api-strict (>=2.0)", "asv", "gmpy2", "hypothesis (>=6.30)", "meson", "mpmath", "ninja", "pooch", "pytest", "pytest-cov", "pytest-timeout", "pytest-xdist", "scikit-umfpack", "threadpoolctl"]
 
 [[package]]
+name = "scipy-stubs"
+version = "1.4.1a3"
+description = "Type stubs for SciPy"
+optional = false
+python-versions = "<4.0.0,>=3.10.1"
+files = [
+    {file = "scipy_stubs-1.4.1a3-py3-none-any.whl", hash = "sha256:e46b8ad004a8ca56e4ec8f4f7e3d6a743038d3a216e087d093f0b926052c9d1f"},
+    {file = "scipy_stubs-1.4.1a3.tar.gz", hash = "sha256:f972ff060c411924bcca3014100850bbdb52d36c10b7f1dbab1506aecd9e6089"},
+]
+
+[package.dependencies]
+optype = ">=0.6.1,<0.7.0"
+scipy = ">=1.14.1,<2.0.0"
+
+[[package]]
 name = "setuptools"
 version = "75.1.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
@@ -795,7 +827,18 @@ files = [
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
 ]
 
+[[package]]
+name = "typing-extensions"
+version = "4.12.2"
+description = "Backported and Experimental Type Hints for Python 3.8+"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "typing_extensions-4.12.2-py3-none-any.whl", hash = "sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d"},
+    {file = "typing_extensions-4.12.2.tar.gz", hash = "sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"},
+]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.12.0"
-content-hash = "b6025b22e36972c9a1176e85ddfd0daf5acd7dfa3bbccad0dfdf560a057c9c4f"
+content-hash = "b41c7b11eb4d40b434b8d94c43f3680aab8b6a3d9c1c1af101f0009b89986a4f"

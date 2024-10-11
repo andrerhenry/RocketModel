@@ -1,13 +1,10 @@
-import sys
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Slot
 
-
-from config.Rocket_Config import Motor
-
+from rocket_model.config.rocket_config import Motor
 
 
-class MotorConfigUi(QtWidgets.QWidget):
+class MotorConfigUI(QtWidgets.QWidget):
     def __init__(self, motor: Motor, parent = None):
         super().__init__(parent)
         self.motor = motor

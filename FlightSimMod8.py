@@ -82,7 +82,7 @@ t = np.linspace(0,63,10000)
 stateinitial = np.array([z0, zv0, RocketMass0])
 
 # Integratoin of model
-stateout = sci.odeint(Derivative, stateinitial, t)
+stateout = sci.odeint(Derivative, stateinitial, t.astype(int))
 
 zout = stateout[:,0]
 zvout = stateout[:,1]
