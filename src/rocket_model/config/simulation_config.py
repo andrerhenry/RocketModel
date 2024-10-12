@@ -101,7 +101,7 @@ ground_event.direction = -1   # The event occurs when z is decreasing
 
 
 
-def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: RocketConfig, motor: Motor) -> tuple[asarray, asarray ]:
+def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: RocketConfig, motor: Motor) -> tuple[ArrayLike, ArrayLike ]:
     """Main Simulation fucntion that integrate the system dynamics
 
     Args:
