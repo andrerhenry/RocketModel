@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import scipy.integrate as sci
 from datetime import datetime
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Sequence
 
 from rocket_model.config.rocket_config import RocketConfig, Motor
 from rocket_model.config.aero_config import Aero
@@ -52,7 +52,7 @@ def derivative(state: tuple[int, int, float], t: float, rocket: RocketConfig, mo
     return statedot
 
 
-def simulation(initial_conditions: tuple[int, int, float], time_array: np.array, rocket: RocketConfig, motor: Motor) -> SequenceLike[float]:
+def simulation(initial_conditions: tuple[int, int, float], time_array: np.array, rocket: RocketConfig, motor: Motor) -> Sequence[float]:
     """Main Simulation fucntion that integrate the system dynamics
 
     Args:
