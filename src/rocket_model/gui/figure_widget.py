@@ -30,8 +30,8 @@ class FigureWidget(QtWidgets.QWidget):
         headerLayout.addWidget(self.dataComboBox)
         header.setLayout(headerLayout)
         
-        self.figureCanvas = FigureCanvas(Figure(figsize=(5, 3)))
-        self.figureCanvas.setMinimumSize(600, 400)
+        self.figureCanvas = FigureCanvas(Figure(figsize=(5, 4)))
+        self.figureCanvas.setMinimumSize(800, 500)
         self.axes = self.figureCanvas.figure.subplots()                
         self.updateCanvas()
         
