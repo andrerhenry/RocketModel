@@ -2,7 +2,7 @@ from PySide6 import QtWidgets
 from PySide6.QtCore import Slot
 from PySide6.QtGui import QFont
 
-from matplotlib.backends.backend_qtagg import FigureCanvasQT
+from matplotlib.backends.backend_qtagg import FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
@@ -30,7 +30,7 @@ class FigureWidget(QtWidgets.QWidget):
         headerLayout.addWidget(self.dataComboBox)
         header.setLayout(headerLayout)
         
-        self.figureCanvas = FigureCanvasQT(Figure(figsize=(5, 3)))
+        self.figureCanvas = FigureCanvas(Figure(figsize=(5, 3)))
         self.figureCanvas.setMinimumSize(600, 400)
         self.axes = self.figureCanvas.figure.subplots()                
         self.updateCanvas()
