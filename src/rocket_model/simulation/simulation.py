@@ -105,7 +105,7 @@ def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: Ro
     """Main Simulation fucntion that integrate the system dynamics
 
     Args:
-        inital_conditions (np.array): Inital condition of the system [altitude - m, velocity - m/s, mass -kg]
+        inital_conditions (tuple): Inital condition of the system [altitude - m, velocity - m/s, mass -kg]
         time_array (np.array): Time array (sec)
         rocket (RocketConfig): _description_
         motor (Motor): _description_
@@ -127,7 +127,10 @@ def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: Ro
 
 
 class SimulationData:  
-    """_summary_
+    """Class to store simulaiton data.
+    
+        Attr:
+        meta_data (dict): Stores meta data of attributes: Label, Units, Data
     """    
     def __init__(self, parent_gui = None):
         self.time = np.empty(1)
@@ -149,7 +152,14 @@ class SimulationData:
         }
     
     def update_data(self, time: np.ndarray = None, state: np.ndarray = None, state_dot: np.ndarray = None, parent_gui = None):
-        
+        """Stores the simulation data for analysis
+
+        Args:
+            time (np.ndarray, optional): Stores the time values. Defaults to None.
+            state (np.ndarray, optional): Stores simulation values. Defaults to None.
+            state_dot (np.ndarray, optional): Stores the derivative values. Defaults to None.
+            parent_gui (QWidget, optional): parent widget when using a GUI. Defaults to None.
+        """ 
         self.current_time = datetime.now().strftime('%H:%M:%S')
 
         if time is not None:
@@ -196,8 +206,8 @@ if __name__ == "__main__":
 
     inital_conditions = np.array([0, 0, rocket.rocket_mass_0])
     time_array, state, state_dot = simulation(inital_conditions, time, rocket, Nmotor)
-    SimulationData
+    data = SimulationData().update_data(time_array, state, state_dot)
     
-    data.update_data(time_array, state, state_dot)
+    
     
 
