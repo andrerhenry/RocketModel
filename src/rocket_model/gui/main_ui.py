@@ -58,9 +58,7 @@ class MainUi(QtWidgets.QMainWindow):
         
         rocketConfigWidget = RocketConfigUI(self.rocket, self)
         motorConfigWidget = MotorConfigUI(self.motor, self)
-        
         self.textbox = QtWidgets.QTextEdit()
-        
         
         configLayout = QtWidgets.QVBoxLayout()
         configLayout.addWidget(rocketConfigWidget)
@@ -93,7 +91,6 @@ class MainUi(QtWidgets.QMainWindow):
         self.addAction
         # Exit QAction
         exit_action = QAction("Exit", self)
-        exit_action.setShortcut(QKeySequence.Quit)  # NOTE: Seems to only be valid on Mac OS
         exit_action.triggered.connect(self.close)
         
         
