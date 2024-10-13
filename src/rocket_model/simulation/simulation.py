@@ -177,15 +177,15 @@ class SimulationData:
         
         if parent_gui is not None:
             parent_gui.appendText(f'\nSim ({self.current_time}):')
-            parent_gui.appendText(f'Apogee:  {np.max(self.altitude):.2f}')
-            parent_gui.appendText(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
-            parent_gui.appendText(f'Maxium Acceleration:  {np.max(self.acceleration):.2f}')
+            parent_gui.appendText(f'Apogee:  {np.max(self.altitude):.2f} m')
+            parent_gui.appendText(f'Maxium Velocity:  {np.max(self.velocity):.2f} m/s')
+            parent_gui.appendText(f'Maxium Acceleration:  {np.max(self.acceleration):.2f} m/s^2')
             
         else:
             print(f'\nSim ({self.current_time}):')
-            print(f'Apogee:  {np.max(self.altitude):.2f}')
-            print(f'Maxium Velocity:  {np.max(self.velocity):.2f}')
-            print(f'Maxium Acceleration:  {np.max(self.acceleration):.2f}')
+            print(f'Apogee:  {np.max(self.altitude):.2f} m')
+            print(f'Maxium Velocity:  {np.max(self.velocity):.2f} m/s')
+            print(f'Maxium Acceleration:  {np.max(self.acceleration):.2f} m/S^2')
         
         
 if __name__ == "__main__":
