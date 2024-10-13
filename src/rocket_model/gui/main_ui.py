@@ -6,7 +6,7 @@ from PySide6.QtGui import QAction, QKeySequence, QPixmap, QFont
 from PySide6.QtCore import Slot, Qt
 
 from rocket_model.config.rocket_config import RocketConfig, Motor
-from rocket_model.config.simulation_config import simulation, Time, SimulationData
+from rocket_model.simulation.simulation_config import simulation, Time, SimulationData
 
 from rocket_model.gui.rocket_config_ui import RocketConfigUI
 from rocket_model.gui.motor_config_ui import MotorConfigUI
