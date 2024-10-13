@@ -127,6 +127,8 @@ def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: Ro
 
 
 class SimulationData:  
+    """_summary_
+    """    
     def __init__(self, parent_gui = None):
         self.time = np.empty(1)
         self.altitude = np.empty(1)
@@ -147,6 +149,7 @@ class SimulationData:
         }
     
     def update_data(self, time: np.ndarray = None, state: np.ndarray = None, state_dot: np.ndarray = None, parent_gui = None):
+        
         self.current_time = datetime.now().strftime('%H:%M:%S')
 
         if time is not None:
@@ -174,3 +177,27 @@ class SimulationData:
             print(f'Maxium Acceleration:  {np.max(self.acceleration):.2f}')
         
         
+if __name__ == "__main__":
+    
+    # testing rocket data
+    rocket_mass_0 = 32098/1000 # kilograms
+    drag_coefficient = 0.36 #cf
+    diameter = 0.155 # meters
+    rocket = RocketConfig(rocket_mass_0, drag_coefficient, diameter)
+    
+    # n Rocket Motor Perameters
+    FuelMass = 7512.0/1000.0 # kg
+    ThrustAvg = 3168.0 # F
+    TotalImpulse = 14041.0 # Ns
+    burn_time = 4.4 #s
+    Nmotor = Motor(FuelMass, ThrustAvg, TotalImpulse, burn_time)
+    
+    time = Time(0, 63, 0.001)
+
+    inital_conditions = np.array([0, 0, rocket.rocket_mass_0])
+    time_array, state, state_dot = simulation(inital_conditions, time, rocket, Nmotor)
+    SimulationData
+    
+    data.update_data(time_array, state, state_dot)
+    
+
