@@ -9,7 +9,6 @@
         *Rocket is stable and rigid
         *Motor is considered to burn evenly consitantly for the burn time
 """
-__version__ = "2.1.0"
 
 import sys
 import os
