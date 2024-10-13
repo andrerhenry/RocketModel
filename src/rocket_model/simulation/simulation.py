@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 import scipy.integrate as sci
+import matplotlib.pyplot as plt
 from datetime import datetime
 from typing import TYPE_CHECKING, Sequence
 
@@ -203,11 +204,28 @@ if __name__ == "__main__":
     Nmotor = Motor(FuelMass, ThrustAvg, TotalImpulse, burn_time)
     
     time = Time(0, 63, 0.001)
-
     inital_conditions = np.array([0, 0, rocket.rocket_mass_0])
+    
     time_array, state, state_dot = simulation(inital_conditions, time, rocket, Nmotor)
-    data = SimulationData().update_data(time_array, state, state_dot)
     
+    data = SimulationData()
+    data.update_data(time_array, state, state_dot)
     
+    selected_data = "Altitude"
     
+    fig, ax = plt.subplots()
+    ax.plot(data.time, getattr(data, data.meta_data[selected_data]["data"]))
+    ax.grid()
+    ax.set_title(selected_data)
+    ax.set_ylabel(data.meta_data[selected_data]["label"])
+    ax.set_xlabel("Time (s)")
+    plt.show()
+    
+    """plt.figure()
+    plt.plot(t,zout)
+    plt.title('Altitude')
+    plt.xlabel('Time (s)')
+    plt.ylabel('Altitude (m)')
+    plt.grid()"""
+        
 
