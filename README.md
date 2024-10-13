@@ -18,3 +18,6 @@ poetry install
 
 # Run the project
 poetry run python src/main.py
+```
+
+writing other things
