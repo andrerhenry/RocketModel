@@ -65,10 +65,10 @@ def derivative(t: float, state: np.array, rocket: RocketConfig, motor: Motor) ->
     """State space equation to be integrated numericaly. 
 
     Args:
-        state (np.array): State Vector [altitude - m, velocity - m/s, mass -kg]
         t (float): Time of current step in integratoin - seconds
-        rocket (RocketConfig): Rocketfig class containing perameters/method of rocket
-        motor (Motor): Motor class conatin peramters/methods of the motor
+        state (np.array): State Vector [altitude - m, velocity - m/s, mass -kg]
+        rocket (RocketConfig): RocketConfig class containing perameters/methods of rocket
+        motor (Motor): Motor class conatining peramters/methods of the motor
 
     Returns:
         np.ndarray: State array dervivative to be integrated [altitude_dot - m/s, velcoity_dot - m/s**2, mass_dot - kg/s]
@@ -102,16 +102,17 @@ ground_event.direction = -1   # The event occurs when z is decreasing
 
 
 
-def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: RocketConfig, motor: Motor) -> tuple[ArrayLike, ArrayLike ]:
+def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: RocketConfig, motor: Motor) -> tuple[ArrayLike, ArrayLike, ArrayLike]:
     """Main Simulation fucntion that integrate the system dynamics
 
     Args:
         inital_conditions (tuple): Inital condition of the system [altitude - m, velocity - m/s, mass -kg]
-        time_array (np.array): Time array (sec)
-        rocket (RocketConfig): _description_
-        motor (Motor): _description_
+        time (Time): Time class conatainer
+        rocket (RocketConfig): Rocket class container
+        motor (Motor): Motor class contatiner
 
     Returns:
+        np.ndarray: time data points of simulation
         np.ndarray: State vector of simulation data [altitude - m, velocity - m/s, mass -kg]
         np.ndarray: State derivative vector of simulation data [velocity - m/s, acceleration - m/s^2, mass_dot - kg/s]
     """
@@ -130,8 +131,8 @@ def simulation(inital_conditions: tuple[int, int, float], time: Time, rocket: Ro
 class SimulationData:  
     """Class to store simulaiton data.
     
-        Attr:
-        meta_data (dict): Stores meta data of attributes: Label, Units, Data
+    Attrs:
+        meta_data (dict): Stores meta data of attributes: label, units, data-attribute name
     """    
     def __init__(self, parent_gui = None):
         self.time = np.empty(1)
@@ -190,7 +191,6 @@ class SimulationData:
         
 if __name__ == "__main__":
     
-    # testing rocket data
     rocket_mass_0 = 32098/1000 # kilograms
     drag_coefficient = 0.36 #cf
     diameter = 0.155 # meters
@@ -205,20 +205,19 @@ if __name__ == "__main__":
     
     time = Time(0, 63, 0.001)
     inital_conditions = np.array([0, 0, rocket.rocket_mass_0])
+    data = SimulationData()
     
     time_array, state, state_dot = simulation(inital_conditions, time, rocket, Nmotor)
-    
-    data = SimulationData()
     data.update_data(time_array, state, state_dot)
     
     selected_data = "Altitude"
     
     fig, ax = plt.subplots()
     ax.plot(data.time, getattr(data, data.meta_data[selected_data]["data"]))
-    ax.grid()
     ax.set_title(selected_data)
     ax.set_ylabel(data.meta_data[selected_data]["label"])
     ax.set_xlabel("Time (s)")
+    ax.grid()
     plt.show()
 
         
