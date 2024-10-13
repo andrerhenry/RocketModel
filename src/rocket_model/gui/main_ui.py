@@ -109,27 +109,3 @@ class MainUi(QtWidgets.QMainWindow):
         self.textbox.append(text)
 
 
-if __name__ == "__main__":
-    
-    # testing rocket data
-    rocket_mass_0 = 32098/1000 # kilograms
-    drag_coefficient = 0.36 #cf
-    diameter = 0.155 # meters
-    rocket = RocketConfig(rocket_mass_0, drag_coefficient, diameter)
-    
-    # n Rocket Motor Perameters
-    FuelMass = 7512.0/1000.0 # kg
-    ThrustAvg = 3168.0 # F
-    TotalImpulse = 14041.0 # Ns
-    burn_time = 4.4 #s
-    Nmotor = Motor(FuelMass, ThrustAvg, TotalImpulse, burn_time)
-    
-    time = Time(0, 63, 0.001)
-    
-    
-    # testing .ui
-    app = QtWidgets.QApplication(sys.argv)
-    ui = MainUi(rocket, Nmotor, time)
-    ui.show()
-    
-    sys.exit(app.exec())
