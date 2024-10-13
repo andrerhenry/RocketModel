@@ -46,8 +46,8 @@ class FigureWidget(QtWidgets.QWidget):
         key = self.dataComboBox.currentText()
         
         self.axes.plot(self.data.time, getattr(self.data, self.data.meta_data[key]["data"]))
-        self.axes.grid()
         self.axes.set_title(key)
         self.axes.set_ylabel(self.data.meta_data[key]["label"])
         self.axes.set_xlabel("Time (s)")
+        self.axes.grid()
         self.figureCanvas.draw()
