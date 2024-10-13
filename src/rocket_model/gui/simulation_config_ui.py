@@ -1,7 +1,7 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Slot
 
-from rocket_model.simulation.simulation_config import Time
+from rocket_model.simulation.simulation import Time
 
 
 class SimulationUI(QtWidgets.QWidget):
