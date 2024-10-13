@@ -220,12 +220,6 @@ if __name__ == "__main__":
     ax.set_ylabel(data.meta_data[selected_data]["label"])
     ax.set_xlabel("Time (s)")
     plt.show()
-    
-    """plt.figure()
-    plt.plot(t,zout)
-    plt.title('Altitude')
-    plt.xlabel('Time (s)')
-    plt.ylabel('Altitude (m)')
-    plt.grid()"""
+
         
 
