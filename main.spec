@@ -6,8 +6,8 @@ a = Analysis(
     pathex=['.'],
     binaries=[],
     datas=[
-        ('src\\rocket_model\\gui\\images\\HornetLogo.png', 'gui\\images'),
-        ('src\\rocket_model\\gui\\images\\splash.png', 'gui\\images')
+        ('src\\rocket_model\\gui\\images\\splash.png', 'gui\\images'),
+        ('src\\rocket_model\\gui\\images\\HornetLogo.png', 'rocket_model\\gui\\images')
         ],
     hiddenimports=[],
     hookspath=[],

@@ -41,7 +41,7 @@ time_config = Time(0, 63, 0.001)
 app = QtWidgets.QApplication(sys.argv)
 
 BASE_DIR = os.path.dirname(__file__)
-splash_path = os.path.join(BASE_DIR, "gui/images", "splash.png")
+splash_path = os.path.join(BASE_DIR, "gui\\images", "splash.png")
 splash = QtWidgets.QSplashScreen(QtGui.QPixmap(splash_path).scaled(700, 700))
 splash.show()
 time.sleep(1)
