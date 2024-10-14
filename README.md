@@ -28,6 +28,16 @@ Then install the project dependancies with:
 ```bash
 poetry install
 ```
+> **Note**: 
+> Poetry may install virtual environments in deep directory structures by default, which can cause long path issues on some systems.  
+> To avoid this, you can set a custom, shorter path for your virtual environments by running:
+> 
+> ```bash
+> poetry config virtualenvs.path C:\venvs
+> ```
+> 
+> You can replace `C:\venvs` with a directory of your choice.
+
 
 ## Running Rocket Model
 After installing dependacies, the project can now be run with: 
