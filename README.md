@@ -1,10 +1,10 @@
 # RocketModel
 
-Rocket model is any easy and approachable way to get first round rocket flight simulations done without having to build a Open Rocket model or diving into RocketPy simulations. It features a GUI for easy edditing of simlation perameters and a verity of plots of the simulation. Before using Rocket Model one should note the major assuptions of the model:
+Rocket model is any easy and approachable way to get first round rocket flight simulations without having to build a Open Rocket model or diving into RocketPy simulations. It features a GUI for easy edditing of simlation perameters and a veriety of plots for the simulation. Before using Rocket Model one should note the major assuptions of the model:
   - Gravity is concidered constant
   - The rockets angle of attach is zero for the flight
   - The rockets is stable and ridged
-  - The Motor burns consitanly and evenly at average thrust
+  - The motor burns consitanly and evenly at average thrust
 
 
 ## Installation 
