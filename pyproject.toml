@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rocketmodel"
-version = "2.1.0"
+version = "2.1.1"
 description = "Simple rocket model for flight simulations"
 authors = ["andrerhenry <kinghenry238@gmail.com>"]
 license = "MIT"
