@@ -1,34 +1,19 @@
-[tool.poetry]
+[project]
 name = "rocketmodel"
-version = "2.1.1"
-description = "Simple rocket model for flight simulations"
-authors = ["andrerhenry <kinghenry238@gmail.com>"]
-license = "MIT"
+version = "0.1.0"
+description = "Add your description here"
 readme = "README.md"
-
-packages = [
-    { include = "rocket_model", from = "src" },
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib>=3.10.1",
+    "numpy>=2.2.3",
+    "pyside6>=6.8.2.1",
+    "pyside6-essentials>=6.8.2.1",
+    "scipy>=1.15.2",
 ]
 
-
-[tool.poetry.dependencies]
-python = ">=3.11.0,<3.14"
-matplotlib = "^3.9.2"
-numpy = "^2.1.2"
-PySide6 = "^6.7.3"
-pyside6-essentials = "^6.7.3"
-scipy = "^1.14.1"
-
-
-
-
-[tool.poetry.group.dev.dependencies]
-pyinstaller = "^6.10.0"
-scipy-stubs = "^1.4.1a3"
-
-
-
-
-[build-system]
-requires = ["poetry-core>=1.2.0"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "pyinstaller>=6.12.0",
+    "scipy-stubs>=1.15.2.0",
+]
