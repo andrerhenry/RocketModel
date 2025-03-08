@@ -35,7 +35,7 @@ n_total_impulse = 14041.0 # Newton*seconds
 n_total_burn_time = 4.4 # seconds
 n_motor = Motor(n_fuel_mass, n_trust_avg, n_total_impulse, n_total_burn_time)
 
-time_config = Time(0, 63, 0.001)
+time_config = Time(0, 80, 0.001)
 
 
 app = QtWidgets.QApplication(sys.argv)
