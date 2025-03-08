@@ -22,7 +22,7 @@ cd RocketModel
 ### Installing Dependacies
 Poetry has been implemented to manage the project dependacies. Before you install dependencies, ensure you have poetry installed:
 ```bash
-  
+ pip install "poetry<2.0.0"
 ```
 Then install the project dependancies with:
 ```bash
