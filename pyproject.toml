@@ -16,5 +16,9 @@ dependencies = [
 dev = [
     "pyinstaller>=6.12.0",
     "pytest>=8.3.5",
+    "rocketmodel",
     "scipy-stubs>=1.15.2.0",
 ]
+
+[tool.uv.sources]
+rocketmodel = { workspace = true }

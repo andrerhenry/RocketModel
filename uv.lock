@@ -619,6 +619,7 @@ dependencies = [
 dev = [
     { name = "pyinstaller" },
     { name = "pytest" },
+    { name = "rocketmodel" },
     { name = "scipy-stubs" },
 ]
 
@@ -635,6 +636,7 @@ requires-dist = [
 dev = [
     { name = "pyinstaller", specifier = ">=6.12.0" },
     { name = "pytest", specifier = ">=8.3.5" },
+    { name = "rocketmodel", virtual = "." },
     { name = "scipy-stubs", specifier = ">=1.15.2.0" },
 ]
 
