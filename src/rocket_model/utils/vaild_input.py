@@ -8,4 +8,7 @@ def validate_positive_number(input: int | float):
         return input
     except (TypeError, ValueError) as e:
         print(f"{type(e).__name__}: {e}")
+        return e
 
+if __name__ == "__main__":
+    validate_positive_number(-1)
