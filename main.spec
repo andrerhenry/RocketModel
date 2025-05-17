@@ -2,13 +2,10 @@
 
 
 a = Analysis(
-    ['src\\rocket_model\\main.py'],
-    pathex=['.'],
+    ['src/rocket_model/main.py'],
+    pathex=[],
     binaries=[],
-    datas=[
-        ('src\\rocket_model\\gui\\images\\splash.png', 'gui\\images'),
-        ('src\\rocket_model\\gui\\images\\HornetLogo.png', 'rocket_model\\gui\\images')
-        ],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -22,20 +19,26 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
     [],
-    name='RocketModel',
+    exclude_binaries=True,
+    name='main',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    upx_exclude=[],
-    runtime_tmpdir=None,
-    console=False,
+    console=True,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+)
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='main',
 )
