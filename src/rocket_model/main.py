@@ -11,8 +11,8 @@
 """
 
 import sys
-import os
 import time
+from pathlib import Path
 from PySide6 import QtWidgets, QtGui
 
 from rocket_model.config import RocketConfig, Motor
@@ -40,8 +40,8 @@ time_config = Time(0, 80, 0.001)
 
 app = QtWidgets.QApplication(sys.argv)
 
-BASE_DIR = os.path.dirname(__file__)
-splash_path = os.path.join(BASE_DIR, "gui\\images", "splash.png")
+base_dir = Path(__file__).parent
+splash_path = base_dir/"gui"/"images"/"splash.png"
 splash = QtWidgets.QSplashScreen(QtGui.QPixmap(splash_path).scaled(700, 700))
 splash.show()
 time.sleep(1)
