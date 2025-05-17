@@ -1,6 +1,6 @@
-import sys
-import os
 import numpy as np
+
+from pathlib import Path
 from PySide6 import QtWidgets
 from PySide6.QtGui import QAction, QKeySequence, QPixmap, QFont
 from PySide6.QtCore import Slot, Qt
@@ -31,8 +31,8 @@ class MainUi(QtWidgets.QMainWindow):
         simulationWidget = QtWidgets.QWidget()
         
         # Redefine directory for pyinstaller 
-        BASE_DIR = os.path.dirname(__file__)
-        imagePath = os.path.join(BASE_DIR, "images", "HornetLogo.png")
+        base_dir = Path(__file__).parent
+        imagePath = base_dir/"images"/"HornetLogo.png"
         logoPath = QPixmap(imagePath).scaled(
             configWidget.width(),
             configWidget.width(),
