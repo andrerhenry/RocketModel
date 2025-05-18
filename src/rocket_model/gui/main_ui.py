@@ -30,7 +30,6 @@ class MainUi(QtWidgets.QMainWindow):
         configWidget.setFixedWidth(225)
         simulationWidget = QtWidgets.QWidget()
         
-        # Redefine directory for pyinstaller 
         base_dir = Path(__file__).parent
         imagePath = base_dir/"images"/"HornetLogo.png"
         logoPath = QPixmap(imagePath).scaled(
