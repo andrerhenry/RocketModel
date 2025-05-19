@@ -7,7 +7,8 @@ a = Analysis(
     binaries=[],
     datas=[
         ('src/rocket_model/gui/images/splash.png', 'gui/images'),
-        ('src/rocket_model/gui/images/HornetLogo.png', 'rocket_model/gui/images')
+        ('src/rocket_model/gui/images/HornetLogo.png', 'rocket_model/gui/images'),
+        ('src/rocket_model/config/atmospheric_properties.csv', 'rocket_model/config')
         ],
     hiddenimports=[],
     hookspath=[],
