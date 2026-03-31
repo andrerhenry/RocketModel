@@ -1,7 +1,7 @@
 [project]
 name = "rocketmodel"
 version = "2.2.0"
-requires-python = ">=3.10"
+requires-python = ">=3.10, <3.14"
 description = "Simple rocket model for flight simulations"
 authors = [{name = "Andre Henry", email = "kinghenry238@gmail.com"}]
 license = "MIT"
@@ -27,3 +27,6 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.uv]
+python-downloads = "auto"
