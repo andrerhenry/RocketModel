@@ -1,9 +1,9 @@
 # RocketModel
 
-Rocket model is an easy and approachable way to get first round rocket flight simulations without having to build a Open Rocket model or diving into RocketPy simulations. It features a GUI for easy edditing of simulation parameters and a variety of plots for the simulation. Before using Rocket Model one should note the major assumptions of the model:
+Rocket model is an easy and approachable way to get first round rocket flight simulations without having to build a OpenRocket model or diving into RocketPy simulations. It features a GUI for easy edditing of simulation parameters and a variety of plots for the simulation. Before using Rocket Model one should note the major assumptions of the model:
   - Gravity is considered constant
-  - The rockets angle of attack is zero for the flight
-  - The rockets is stable and rigid
+  - The rocket's angle of attack is zero for the flight
+  - The rocket is stable and rigid
   - The motor burns consistently and evenly at average thrust
 
 
@@ -47,27 +47,27 @@ python src/rocket_model/main.py
 
 ## User Guide
 ### Running the Rocket Model Application
-To start an simulation, first edit the Rocket Configuration. This is the basic attributes of your rocket.
+To start an simulation, first edit the Rocket Configuration. Input the basic attributes of your rocket.
 
-![Screenshot of Rocket Configuration section.](https://github.com/user-attackments/assets/b0e8b07d-c86d-4e4d-b959-236128776c02)
+![Screenshot of Rocket Configuration section.](./src/rocket_model/gui/images/rocket_config_image.png)
 
-Next, fill out the Motor Configuration with you data from your motor data sheet:
+Next, fill out the Motor Configuration using the data from your motor data sheet:
 
-![Example Rocket Motor datasheet](https://github.com/user-attackments/assets/b6a80b14-fda1-4d6c-b557-83f3dfa79031)
+![Example Rocket Motor datasheet](./src/rocket_model/gui/images/motor_info_image.png)
 
-![Screenshot of Motor Configuration section.](https://github.com/user-attackments/assets/cbbe864a-ef3f-454d-acd7-3c64210bc925)
+![Screenshot of Motor Configuration section.](./src/rocket_model/gui/images/motor_config_image.png)
 
 Adjust the simulation time and simulation resolution as needed:
 
-![Screenshot of time parameters](https://github.com/user-attackments/assets/2efcc23b-6bb7-44a6-b0c3-d8c0a374d575)
+![Screenshot of time parameters](./src/rocket_model/gui/images/simulation_config_image.png)
 
 The figure section shows plots of simulation. The current plot can be changed with the drop down menu at the bottom of the window. 
 
-![Screenshot of figure area](https://github.com/user-attackments/assets/bb52cc3e-6fcd-402f-82e8-88c0aa9de203)
+![Screenshot of figure area](./src/rocket_model/gui/images/altitude_plot.png)
 
 
 ### Running Rocket Model Script
-The simulation module can be run as a standalone file if you prefer to run the simulation in a script form. Edit the if __name__== __main__section and than run the simulation module with either of the following commands:
+The simulation module can be run as a standalone file if you prefer to run the simulation in a script form. Edit the `if __name__== "__main__":` section and then run the simulation module with either of the following commands:
 ```bash
 uv run src/rocket_model/simulation.simulation.py
 ```
@@ -78,7 +78,7 @@ python src/rocket_model/simulation.simulation.py
 
 ## Acknowledgements 
 
-I would like to give a special thanks to Dr. Carlos Montalvo of University of South Alabama and his video series that showed me that simulations of rockets in Python is more accessible than I initially imagined.
+I would like to give a special thanks to Dr. Carlos Montalvo of University of South Alabama and his video series that showed me that simulations of rockets in Python are more accessible than I initially imagined.
 
 I would also like to extend my thanks to the Reddit community, r/learnpython,  for the countless lessons and invaluable interactions that greatly aided my journey in learning Python.
 
